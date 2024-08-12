@@ -3,6 +3,7 @@ CONFIG += console
 CONFIG -= app_bundle
 CONFIG -= qt
 
+QMAKE_CXXFLAGS += -std=c++11
 
 LIBS += -L"D:\SFML\QTSFML\SFML-2.3.2\lib"
 
