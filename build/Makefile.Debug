@@ -45,16 +45,20 @@ OBJECTS_DIR   = debug
 
 SOURCES       = ..\FishLegends\main.cpp \
 		..\FishLegends\entity.cpp \
-		..\FishLegends\player.cpp 
+		..\FishLegends\player.cpp \
+		..\FishLegends\enemy.cpp 
 OBJECTS       = debug/main.o \
 		debug/entity.o \
-		debug/player.o
+		debug/player.o \
+		debug/enemy.o
 
 DIST          =  map.h \
 		entity.h \
-		player.h ..\FishLegends\main.cpp \
+		player.h \
+		enemy.h ..\FishLegends\main.cpp \
 		..\FishLegends\entity.cpp \
-		..\FishLegends\player.cpp
+		..\FishLegends\player.cpp \
+		..\FishLegends\enemy.cpp
 QMAKE_TARGET  = FishLegends
 DESTDIR        = debug\ #avoid trailing-slash linebreak
 TARGET         = FishLegends.exe
@@ -93,7 +97,7 @@ dist:
 	$(ZIP) FishLegends.zip $(SOURCES) $(DIST) ..\FishLegends\FishLegends.pro ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\features\spec_pre.prf ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\qdevice.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\features\device_config.prf ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\common\shell-win32.conf ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\qconfig.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_axbase.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_axbase_private.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_axcontainer.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_axcontainer_private.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_axserver.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_axserver_private.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_bluetooth.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_bluetooth_private.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_bootstrap_private.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_clucene_private.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_concurrent.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_concurrent_private.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_core.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_core_private.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_dbus.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_dbus_private.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_declarative.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_declarative_private.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_designer.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_designer_private.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_designercomponents_private.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_enginio.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_enginio_private.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_gui.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_gui_private.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_help.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_help_private.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_location.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_location_private.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_multimedia.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_multimedia_private.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_multimediawidgets.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_multimediawidgets_private.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_network.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_network_private.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_nfc.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_nfc_private.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_opengl.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_opengl_private.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_openglextensions.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_openglextensions_private.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_platformsupport_private.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_positioning.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_positioning_private.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_printsupport.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_printsupport_private.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_qml.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_qml_private.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_qmldevtools_private.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_qmltest.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_qmltest_private.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_quick.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_quick_private.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_quickparticles_private.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_quickwidgets.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_quickwidgets_private.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_script.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_script_private.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_scripttools.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_scripttools_private.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_sensors.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_sensors_private.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_serialport.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_serialport_private.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_sql.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_sql_private.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_svg.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_svg_private.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_testlib.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_testlib_private.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_uitools.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_uitools_private.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_webchannel.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_webchannel_private.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_webkit.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_webkit_private.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_webkitwidgets.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_webkitwidgets_private.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_websockets.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_websockets_private.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_webview.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_webview_private.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_widgets.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_widgets_private.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_winextras.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_winextras_private.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_xml.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_xml_private.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_xmlpatterns.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_xmlpatterns_private.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\features\qt_functions.prf ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\features\qt_config.prf ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\features\win32\qt_config.prf ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\win32-g++\qmake.conf ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\features\spec_post.prf ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\features\exclusive_builds.prf ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\features\default_pre.prf ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\features\win32\default_pre.prf ..\FishLegends\deployment.pri ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\features\resolve_config.prf ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\features\exclusive_builds_post.prf ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\features\default_post.prf ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\features\build_pass.prf ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\features\win32\console.prf ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\features\win32\rtti.prf ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\features\precompile_header.prf ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\features\warn_on.prf ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\features\testcase_targets.prf ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\features\exceptions.prf ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\features\yacc.prf ..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\features\lex.prf ..\FishLegends\FishLegends.pro  NO_PCH_SOURCES YACCSOURCES YACCSOURCES LEXSOURCES 
 
 clean: compiler_clean 
-	-$(DEL_FILE) debug\main.o debug\entity.o debug\player.o
+	-$(DEL_FILE) debug\main.o debug\entity.o debug\player.o debug\enemy.o
 
 distclean: clean 
 	-$(DEL_FILE) $(DESTDIR_TARGET)
@@ -185,7 +189,9 @@ debug/main.o: ../FishLegends/main.cpp ../FishLegends/map.h \
 		../FishLegends/SFML/Graphics/Shader.hpp \
 		../FishLegends/SFML/Graphics/Sprite.hpp \
 		../FishLegends/SFML/Graphics/Text.hpp \
-		../FishLegends/entity.h
+		../FishLegends/entity.h \
+		../FishLegends/player.h \
+		../FishLegends/enemy.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\main.o ..\FishLegends\main.cpp
 
 debug/entity.o: ../FishLegends/entity.cpp ../FishLegends/entity.h \
@@ -261,8 +267,153 @@ debug/entity.o: ../FishLegends/entity.cpp ../FishLegends/entity.h \
 		../FishLegends/SFML/Graphics/Text.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\entity.o ..\FishLegends\entity.cpp
 
-debug/player.o: ../FishLegends/player.cpp 
+debug/player.o: ../FishLegends/player.cpp ../FishLegends/player.h \
+		../FishLegends/entity.h \
+		../FishLegends/map.h \
+		../FishLegends/SFML/Graphics.hpp \
+		../FishLegends/SFML/Window.hpp \
+		../FishLegends/SFML/System.hpp \
+		../FishLegends/SFML/Config.hpp \
+		../FishLegends/SFML/System/Clock.hpp \
+		../FishLegends/SFML/System/Export.hpp \
+		../FishLegends/SFML/System/Time.hpp \
+		../FishLegends/SFML/System/Err.hpp \
+		../FishLegends/SFML/System/FileInputStream.hpp \
+		../FishLegends/SFML/System/InputStream.hpp \
+		../FishLegends/SFML/System/NonCopyable.hpp \
+		../FishLegends/SFML/System/Lock.hpp \
+		../FishLegends/SFML/System/MemoryInputStream.hpp \
+		../FishLegends/SFML/System/Mutex.hpp \
+		../FishLegends/SFML/System/Sleep.hpp \
+		../FishLegends/SFML/System/String.hpp \
+		../FishLegends/SFML/System/Utf.hpp \
+		../FishLegends/SFML/System/Utf.inl \
+		../FishLegends/SFML/System/String.inl \
+		../FishLegends/SFML/System/Thread.hpp \
+		../FishLegends/SFML/System/Thread.inl \
+		../FishLegends/SFML/System/ThreadLocal.hpp \
+		../FishLegends/SFML/System/ThreadLocalPtr.hpp \
+		../FishLegends/SFML/System/ThreadLocalPtr.inl \
+		../FishLegends/SFML/System/Vector2.hpp \
+		../FishLegends/SFML/System/Vector2.inl \
+		../FishLegends/SFML/System/Vector3.hpp \
+		../FishLegends/SFML/System/Vector3.inl \
+		../FishLegends/SFML/Window/Context.hpp \
+		../FishLegends/SFML/Window/Export.hpp \
+		../FishLegends/SFML/Window/GlResource.hpp \
+		../FishLegends/SFML/Window/ContextSettings.hpp \
+		../FishLegends/SFML/Window/Event.hpp \
+		../FishLegends/SFML/Window/Joystick.hpp \
+		../FishLegends/SFML/Window/Keyboard.hpp \
+		../FishLegends/SFML/Window/Mouse.hpp \
+		../FishLegends/SFML/Window/Sensor.hpp \
+		../FishLegends/SFML/Window/Touch.hpp \
+		../FishLegends/SFML/Window/VideoMode.hpp \
+		../FishLegends/SFML/Window/Window.hpp \
+		../FishLegends/SFML/Window/WindowHandle.hpp \
+		../FishLegends/SFML/Window/WindowStyle.hpp \
+		../FishLegends/SFML/Graphics/BlendMode.hpp \
+		../FishLegends/SFML/Graphics/Export.hpp \
+		../FishLegends/SFML/Graphics/CircleShape.hpp \
+		../FishLegends/SFML/Graphics/Shape.hpp \
+		../FishLegends/SFML/Graphics/Drawable.hpp \
+		../FishLegends/SFML/Graphics/RenderStates.hpp \
+		../FishLegends/SFML/Graphics/Transform.hpp \
+		../FishLegends/SFML/Graphics/Rect.hpp \
+		../FishLegends/SFML/Graphics/Rect.inl \
+		../FishLegends/SFML/Graphics/Transformable.hpp \
+		../FishLegends/SFML/Graphics/VertexArray.hpp \
+		../FishLegends/SFML/Graphics/Vertex.hpp \
+		../FishLegends/SFML/Graphics/Color.hpp \
+		../FishLegends/SFML/Graphics/PrimitiveType.hpp \
+		../FishLegends/SFML/Graphics/ConvexShape.hpp \
+		../FishLegends/SFML/Graphics/Font.hpp \
+		../FishLegends/SFML/Graphics/Glyph.hpp \
+		../FishLegends/SFML/Graphics/Texture.hpp \
+		../FishLegends/SFML/Graphics/Image.hpp \
+		../FishLegends/SFML/Graphics/RectangleShape.hpp \
+		../FishLegends/SFML/Graphics/RenderTarget.hpp \
+		../FishLegends/SFML/Graphics/View.hpp \
+		../FishLegends/SFML/Graphics/RenderTexture.hpp \
+		../FishLegends/SFML/Graphics/RenderWindow.hpp \
+		../FishLegends/SFML/Graphics/Shader.hpp \
+		../FishLegends/SFML/Graphics/Sprite.hpp \
+		../FishLegends/SFML/Graphics/Text.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\player.o ..\FishLegends\player.cpp
+
+debug/enemy.o: ../FishLegends/enemy.cpp ../FishLegends/enemy.h \
+		../FishLegends/entity.h \
+		../FishLegends/map.h \
+		../FishLegends/SFML/Graphics.hpp \
+		../FishLegends/SFML/Window.hpp \
+		../FishLegends/SFML/System.hpp \
+		../FishLegends/SFML/Config.hpp \
+		../FishLegends/SFML/System/Clock.hpp \
+		../FishLegends/SFML/System/Export.hpp \
+		../FishLegends/SFML/System/Time.hpp \
+		../FishLegends/SFML/System/Err.hpp \
+		../FishLegends/SFML/System/FileInputStream.hpp \
+		../FishLegends/SFML/System/InputStream.hpp \
+		../FishLegends/SFML/System/NonCopyable.hpp \
+		../FishLegends/SFML/System/Lock.hpp \
+		../FishLegends/SFML/System/MemoryInputStream.hpp \
+		../FishLegends/SFML/System/Mutex.hpp \
+		../FishLegends/SFML/System/Sleep.hpp \
+		../FishLegends/SFML/System/String.hpp \
+		../FishLegends/SFML/System/Utf.hpp \
+		../FishLegends/SFML/System/Utf.inl \
+		../FishLegends/SFML/System/String.inl \
+		../FishLegends/SFML/System/Thread.hpp \
+		../FishLegends/SFML/System/Thread.inl \
+		../FishLegends/SFML/System/ThreadLocal.hpp \
+		../FishLegends/SFML/System/ThreadLocalPtr.hpp \
+		../FishLegends/SFML/System/ThreadLocalPtr.inl \
+		../FishLegends/SFML/System/Vector2.hpp \
+		../FishLegends/SFML/System/Vector2.inl \
+		../FishLegends/SFML/System/Vector3.hpp \
+		../FishLegends/SFML/System/Vector3.inl \
+		../FishLegends/SFML/Window/Context.hpp \
+		../FishLegends/SFML/Window/Export.hpp \
+		../FishLegends/SFML/Window/GlResource.hpp \
+		../FishLegends/SFML/Window/ContextSettings.hpp \
+		../FishLegends/SFML/Window/Event.hpp \
+		../FishLegends/SFML/Window/Joystick.hpp \
+		../FishLegends/SFML/Window/Keyboard.hpp \
+		../FishLegends/SFML/Window/Mouse.hpp \
+		../FishLegends/SFML/Window/Sensor.hpp \
+		../FishLegends/SFML/Window/Touch.hpp \
+		../FishLegends/SFML/Window/VideoMode.hpp \
+		../FishLegends/SFML/Window/Window.hpp \
+		../FishLegends/SFML/Window/WindowHandle.hpp \
+		../FishLegends/SFML/Window/WindowStyle.hpp \
+		../FishLegends/SFML/Graphics/BlendMode.hpp \
+		../FishLegends/SFML/Graphics/Export.hpp \
+		../FishLegends/SFML/Graphics/CircleShape.hpp \
+		../FishLegends/SFML/Graphics/Shape.hpp \
+		../FishLegends/SFML/Graphics/Drawable.hpp \
+		../FishLegends/SFML/Graphics/RenderStates.hpp \
+		../FishLegends/SFML/Graphics/Transform.hpp \
+		../FishLegends/SFML/Graphics/Rect.hpp \
+		../FishLegends/SFML/Graphics/Rect.inl \
+		../FishLegends/SFML/Graphics/Transformable.hpp \
+		../FishLegends/SFML/Graphics/VertexArray.hpp \
+		../FishLegends/SFML/Graphics/Vertex.hpp \
+		../FishLegends/SFML/Graphics/Color.hpp \
+		../FishLegends/SFML/Graphics/PrimitiveType.hpp \
+		../FishLegends/SFML/Graphics/ConvexShape.hpp \
+		../FishLegends/SFML/Graphics/Font.hpp \
+		../FishLegends/SFML/Graphics/Glyph.hpp \
+		../FishLegends/SFML/Graphics/Texture.hpp \
+		../FishLegends/SFML/Graphics/Image.hpp \
+		../FishLegends/SFML/Graphics/RectangleShape.hpp \
+		../FishLegends/SFML/Graphics/RenderTarget.hpp \
+		../FishLegends/SFML/Graphics/View.hpp \
+		../FishLegends/SFML/Graphics/RenderTexture.hpp \
+		../FishLegends/SFML/Graphics/RenderWindow.hpp \
+		../FishLegends/SFML/Graphics/Shader.hpp \
+		../FishLegends/SFML/Graphics/Sprite.hpp \
+		../FishLegends/SFML/Graphics/Text.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\enemy.o ..\FishLegends\enemy.cpp
 
 ####### Install
 
