@@ -4,6 +4,7 @@
 
 #include <windows.h>
 
+////////////////////////////КЛАСС СУЩНОСТЬ////////////////////////
 class Entity {
 
 public:
@@ -28,6 +29,7 @@ Entity(Image &image, float X, float Y, int W, int H, std::string Name);
 FloatRect getRect();
 
 virtual void update(float time) = 0;
+
 std::string TileMap[HEIGHT_MAP] = {
     "00000000000000000000000000",
     "0                        0",
@@ -55,6 +57,5 @@ std::string TileMap[HEIGHT_MAP] = {
 void randomMapGenerate();//рандомно расставляем камни
 
 };
-
 #endif // ENTITY
 

@@ -185,7 +185,8 @@ debug/main.o: ../FishLegends/main.cpp ../FishLegends/map.h \
 		../FishLegends/SFML/Graphics/Shader.hpp \
 		../FishLegends/SFML/Graphics/Sprite.hpp \
 		../FishLegends/SFML/Graphics/Text.hpp \
-		../FishLegends/entity.h
+		../FishLegends/entity.h \
+		../FishLegends/player.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\main.o ..\FishLegends\main.cpp
 
 debug/entity.o: ../FishLegends/entity.cpp ../FishLegends/entity.h \
@@ -261,7 +262,78 @@ debug/entity.o: ../FishLegends/entity.cpp ../FishLegends/entity.h \
 		../FishLegends/SFML/Graphics/Text.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\entity.o ..\FishLegends\entity.cpp
 
-debug/player.o: ../FishLegends/player.cpp 
+debug/player.o: ../FishLegends/player.cpp ../FishLegends/player.h \
+		../FishLegends/entity.h \
+		../FishLegends/map.h \
+		../FishLegends/SFML/Graphics.hpp \
+		../FishLegends/SFML/Window.hpp \
+		../FishLegends/SFML/System.hpp \
+		../FishLegends/SFML/Config.hpp \
+		../FishLegends/SFML/System/Clock.hpp \
+		../FishLegends/SFML/System/Export.hpp \
+		../FishLegends/SFML/System/Time.hpp \
+		../FishLegends/SFML/System/Err.hpp \
+		../FishLegends/SFML/System/FileInputStream.hpp \
+		../FishLegends/SFML/System/InputStream.hpp \
+		../FishLegends/SFML/System/NonCopyable.hpp \
+		../FishLegends/SFML/System/Lock.hpp \
+		../FishLegends/SFML/System/MemoryInputStream.hpp \
+		../FishLegends/SFML/System/Mutex.hpp \
+		../FishLegends/SFML/System/Sleep.hpp \
+		../FishLegends/SFML/System/String.hpp \
+		../FishLegends/SFML/System/Utf.hpp \
+		../FishLegends/SFML/System/Utf.inl \
+		../FishLegends/SFML/System/String.inl \
+		../FishLegends/SFML/System/Thread.hpp \
+		../FishLegends/SFML/System/Thread.inl \
+		../FishLegends/SFML/System/ThreadLocal.hpp \
+		../FishLegends/SFML/System/ThreadLocalPtr.hpp \
+		../FishLegends/SFML/System/ThreadLocalPtr.inl \
+		../FishLegends/SFML/System/Vector2.hpp \
+		../FishLegends/SFML/System/Vector2.inl \
+		../FishLegends/SFML/System/Vector3.hpp \
+		../FishLegends/SFML/System/Vector3.inl \
+		../FishLegends/SFML/Window/Context.hpp \
+		../FishLegends/SFML/Window/Export.hpp \
+		../FishLegends/SFML/Window/GlResource.hpp \
+		../FishLegends/SFML/Window/ContextSettings.hpp \
+		../FishLegends/SFML/Window/Event.hpp \
+		../FishLegends/SFML/Window/Joystick.hpp \
+		../FishLegends/SFML/Window/Keyboard.hpp \
+		../FishLegends/SFML/Window/Mouse.hpp \
+		../FishLegends/SFML/Window/Sensor.hpp \
+		../FishLegends/SFML/Window/Touch.hpp \
+		../FishLegends/SFML/Window/VideoMode.hpp \
+		../FishLegends/SFML/Window/Window.hpp \
+		../FishLegends/SFML/Window/WindowHandle.hpp \
+		../FishLegends/SFML/Window/WindowStyle.hpp \
+		../FishLegends/SFML/Graphics/BlendMode.hpp \
+		../FishLegends/SFML/Graphics/Export.hpp \
+		../FishLegends/SFML/Graphics/CircleShape.hpp \
+		../FishLegends/SFML/Graphics/Shape.hpp \
+		../FishLegends/SFML/Graphics/Drawable.hpp \
+		../FishLegends/SFML/Graphics/RenderStates.hpp \
+		../FishLegends/SFML/Graphics/Transform.hpp \
+		../FishLegends/SFML/Graphics/Rect.hpp \
+		../FishLegends/SFML/Graphics/Rect.inl \
+		../FishLegends/SFML/Graphics/Transformable.hpp \
+		../FishLegends/SFML/Graphics/VertexArray.hpp \
+		../FishLegends/SFML/Graphics/Vertex.hpp \
+		../FishLegends/SFML/Graphics/Color.hpp \
+		../FishLegends/SFML/Graphics/PrimitiveType.hpp \
+		../FishLegends/SFML/Graphics/ConvexShape.hpp \
+		../FishLegends/SFML/Graphics/Font.hpp \
+		../FishLegends/SFML/Graphics/Glyph.hpp \
+		../FishLegends/SFML/Graphics/Texture.hpp \
+		../FishLegends/SFML/Graphics/Image.hpp \
+		../FishLegends/SFML/Graphics/RectangleShape.hpp \
+		../FishLegends/SFML/Graphics/RenderTarget.hpp \
+		../FishLegends/SFML/Graphics/View.hpp \
+		../FishLegends/SFML/Graphics/RenderTexture.hpp \
+		../FishLegends/SFML/Graphics/RenderWindow.hpp \
+		../FishLegends/SFML/Graphics/Shader.hpp \
+		../FishLegends/SFML/Graphics/Sprite.hpp \
+		../FishLegends/SFML/Graphics/Text.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\player.o ..\FishLegends\player.cpp
 
 ####### Install

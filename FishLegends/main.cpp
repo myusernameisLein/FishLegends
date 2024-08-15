@@ -182,7 +182,7 @@ clock.restart();
 time = time / 600;
 createObjectForMapTimer += time;//наращиваем таймер
 if (createObjectForMapTimer>3000){
-//randomMapGenerate();//генерация камней
+p.randomMapGenerate();//генерация камней
 createObjectForMapTimer = 0;//обнуляем таймер
 }
 sf::Event event;
