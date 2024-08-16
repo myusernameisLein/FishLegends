@@ -54,7 +54,9 @@ std::string TileMap[HEIGHT_MAP] = {
 
 };
 
-void randomMapGenerate();//рандомно расставляем камни
+void randomMapGenerateAlga();//рандомно расставляем водоросли
+void randomMapGenerateSnake();//рандомно расставляем змей
+void randomMapGenerateHeart();//рандомно расставляем сердечки
 
 };
 #endif // ENTITY
