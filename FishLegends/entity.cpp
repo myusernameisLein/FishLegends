@@ -23,6 +23,7 @@ FloatRect Entity::getRect(){//метод получения прямоуголь
     //эта ф-ция нужна для проверки пересечений
 }
 
+<<<<<<< HEAD
 void Entity::randomMapGenerateAlga(){//рандомно расставляем водоросли
     int randomElementX = 0;//переменная для хранения случайного элемента по горизонтали
     int randomElementY = 0;//переменная для хранения случайного элемента по вертикали
@@ -68,3 +69,4 @@ void Entity::randomMapGenerateHeart(){
             }
         }
 }
+

@@ -4,7 +4,6 @@
 
 #include <windows.h>
 
-////////////////////////////КЛАСС СУЩНОСТЬ////////////////////////
 class Entity {
 
 public:
@@ -59,5 +58,7 @@ void randomMapGenerateSnake();//рандомно расставляем змей
 void randomMapGenerateHeart();//рандомно расставляем сердечки
 
 };
+
+
 #endif // ENTITY
 
