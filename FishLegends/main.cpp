@@ -81,16 +81,17 @@ int enemiesCount = 0; //текущее количество врагов в иг
 //Заполняем список объектами врагами
 for (int i = 0; i < ENEMY_COUNT; i++)
 {
-float xr = 150 + rand() % 500; // случайная координата врага на поле игры по оси “x”
-float yr = 150 + rand() % 350; // случайная координата врага на поле игры по оси “y”
+float xr = 300 + rand() % 500; // случайная координата врага на поле игры по оси “x”
+float yr = 300 + rand() % 350; // случайная координата врага на поле игры по оси “y”
 //создаем врагов и помещаем в список
 enemies.push_back(new Enemy(easyEnemyImage, xr, yr, 96, 96, "EasyEnemy"));
 enemiesCount += 1; //увеличили счётчик врагов
 }
 //Создание переменных под время для генерирования водослей, змей и сердец
-int createObjectForMapTimerStone = 0;
+int createObjectForMapTimerAlga = 0;
 int createObjectForMapTimerSnake = 0;
 int createObjectForMapTimerHeart = 0;
+int createObjectForMapTimerEnemy = 0;
 
 while (window.isOpen())
 {
@@ -100,13 +101,14 @@ if (p.life) gameTime = gameTimeClock.getElapsedTime().asSeconds();//игрово
 //оно не обновляет логику игры
 clock.restart();
 time = time / 600;
-createObjectForMapTimerStone += time;//наращиваем таймер
+createObjectForMapTimerAlga += time;//наращиваем таймер
 createObjectForMapTimerSnake += time;
 createObjectForMapTimerHeart += time;
+createObjectForMapTimerEnemy += time;
 
-if (createObjectForMapTimerStone>3000){
+if (createObjectForMapTimerAlga>3000){
     p.randomMapGenerateAlga();//генерация камней
-    createObjectForMapTimerStone = 0;//обнуляем таймер
+    createObjectForMapTimerAlga = 0;//обнуляем таймер
 }
 if (createObjectForMapTimerSnake>4800){
     p.randomMapGenerateSnake();//генерация змей
@@ -159,38 +161,47 @@ std::cout << "you are lose";
 }
 }
 }
+
 if (p.life == false){
     for (it = Bullets.begin(); it != Bullets.end(); )//говорим что проходимся от начала до конца
     {// если этот объект мертв, то удаляем его
      it = Bullets.erase(it);
     }
 }
+
 //пересечение пули с врагом
-    for (deathenemy = enemies.begin(); deathenemy != enemies.end(); deathenemy++){//бежим по списку врагов
-        for (it = Bullets.begin(); it != Bullets.end(); it++){//по списку пуль
-            if (((*it)->getRect().intersects((*deathenemy)->getRect())) &&
+for (deathenemy = enemies.begin(); deathenemy != enemies.end(); deathenemy++){//бежим по списку врагов
+     for (it = Bullets.begin(); it != Bullets.end(); it++){//по списку пуль
+          if (((*it)->getRect().intersects((*deathenemy)->getRect())) &&
                 ((*deathenemy)->name == "EasyEnemy") && ((*it)->name == "Bullet"))
             {
-                cout << "Excellent hit!\n";
+                cout << "Nice shot!\n";
 
                 //при попадании пули у врага отнимается здоровье
                 (*deathenemy)-> health = 0;
-                if ((*deathenemy)-> health <= 0) {
-                    //(*deathenemy)-> life = false;
-                    //enemiesCount -= 1; //уменьшаем количество врагов в игре
+                if ((*deathenemy)-> health <= 0) { 
                     (*deathenemy)-> life = false;
-                    cout << "Enemy destroyed!\n";
                 }
                 (*it)-> life = false;
 
             }
+
         }
     }
-
 for (deathenemy = enemies.begin(); deathenemy != enemies.end(); deathenemy++){
-if ((*deathenemy)-> life == false) {
-    deathenemy = enemies.erase(deathenemy);
+    if ((*deathenemy)-> life == false) {
+        deathenemy = enemies.erase(deathenemy);
+        enemiesCount -= 1;
+    }
 }
+
+if (createObjectForMapTimerEnemy > 4000) {
+    float xr = 300 + rand() % 500; // случайная координата врага на поле игры по оси “x”
+    float yr = 300 + rand() % 350; // случайная координата врага на поле игры по оси “y”
+    //создаем врагов и помещаем в список
+    enemies.push_back(new Enemy(easyEnemyImage, xr, yr, 96, 96, "EasyEnemy"));
+    enemiesCount += 1; //увеличили счётчик врагов
+    createObjectForMapTimerEnemy = 0;
 }
 
 window.clear();
