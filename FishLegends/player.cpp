@@ -1,4 +1,7 @@
+<<<<<<< HEAD
+=======
 
+>>>>>>> develop
 #include "player.h"
 
 Player::Player(Image &image, float X, float Y, int W, int H, std::string Name) :Entity(image, X,
@@ -14,6 +17,21 @@ Y, W, H, Name){
 
 
 void Player::control(){
+<<<<<<< HEAD
+    if (Keyboard::isKeyPressed(Keyboard::Left) or Keyboard::isKeyPressed(Keyboard::A)) {
+    state = left;
+    speed = 0.1;
+    }
+    if (Keyboard::isKeyPressed(Keyboard::Right) or Keyboard::isKeyPressed(Keyboard::D)) {
+    state = right;
+    speed = 0.1;
+    }
+    if (Keyboard::isKeyPressed(Keyboard::Up) or Keyboard::isKeyPressed(Keyboard::W)) {
+    state = up;
+    speed = 0.1;
+    }
+    if (Keyboard::isKeyPressed(Keyboard::Down) or Keyboard::isKeyPressed(Keyboard::S)) {
+=======
     if (Keyboard::isKeyPressed(Keyboard::Left)) {
     state = left;
     speed = 0.1;
@@ -27,6 +45,7 @@ void Player::control(){
     speed = 0.1;
     }
     if (Keyboard::isKeyPressed(Keyboard::Down)) {
+>>>>>>> develop
     state = down;
     speed = 0.1;
     }

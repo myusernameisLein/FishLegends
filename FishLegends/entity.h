@@ -28,6 +28,7 @@ Entity(Image &image, float X, float Y, int W, int H, std::string Name);
 FloatRect getRect();
 
 virtual void update(float time) = 0;
+
 std::string TileMap[HEIGHT_MAP] = {
     "00000000000000000000000000",
     "0                        0",
@@ -52,9 +53,12 @@ std::string TileMap[HEIGHT_MAP] = {
 
 };
 
-void randomMapGenerate();//рандомно расставляем камни
+void randomMapGenerateAlga();//рандомно расставляем водоросли
+void randomMapGenerateSnake();//рандомно расставляем змей
+void randomMapGenerateHeart();//рандомно расставляем сердечки
 
 };
+
 
 #endif // ENTITY
 

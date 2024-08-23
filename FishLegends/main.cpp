@@ -86,7 +86,11 @@ float yr = 150 + rand() % 350; // случайная координата вра
 enemies.push_back(new Enemy(easyEnemyImage, xr, yr, 96, 96, "EasyEnemy"));
 enemiesCount += 1; //увеличили счётчик врагов
 }
-int createObjectForMapTimer = 0;//Переменная под время для генерирования камней
+//Создание переменных под время для генерирования водослей, змей и сердец
+int createObjectForMapTimerStone = 0;
+int createObjectForMapTimerSnake = 0;
+int createObjectForMapTimerHeart = 0;
+
 while (window.isOpen())
 {
 float time = clock.getElapsedTime().asMicroseconds();
@@ -95,10 +99,21 @@ if (p.life) gameTime = gameTimeClock.getElapsedTime().asSeconds();//игрово
 //оно не обновляет логику игры
 clock.restart();
 time = time / 600;
-createObjectForMapTimer += time;//наращиваем таймер
-if (createObjectForMapTimer>3000){
-//randomMapGenerate();//генерация камней
-createObjectForMapTimer = 0;//обнуляем таймер
+createObjectForMapTimerStone += time;//наращиваем таймер
+createObjectForMapTimerSnake += time;
+createObjectForMapTimerHeart += time;
+
+if (createObjectForMapTimerStone>3000){
+    p.randomMapGenerateAlga();//генерация камней
+    createObjectForMapTimerStone = 0;//обнуляем таймер
+}
+if (createObjectForMapTimerSnake>4800){
+    p.randomMapGenerateSnake();//генерация змей
+    createObjectForMapTimerSnake = 0;//обнуляем таймер
+}
+if (createObjectForMapTimerHeart>9000){
+    p.randomMapGenerateHeart();//генерация сердец
+    createObjectForMapTimerHeart = 0;//обнуляем таймер
 }
 sf::Event event;
 while (window.pollEvent(event))
