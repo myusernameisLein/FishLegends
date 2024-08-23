@@ -16,7 +16,6 @@ Enemy::Enemy(Image &image, float X, float Y, int W, int H, std::string Name) :En
 }
 
 
-
 void Enemy::checkCollisionWithMap(float Dx, float Dy)//ф-ция проверки столкновений с картой
 {
     for (int i = y / 48; i < (y + h) / 48; i++)//проходимся по элементам карты
