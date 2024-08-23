@@ -75,6 +75,7 @@ Player p(heroImage, 100, 100, 96, 96, "Player1");//объект класса и�
 std::list<Entity*> enemies; //список врагов
 std::list<Entity*> Bullets; //список пуль
 std::list<Entity*>::iterator it; //итератор чтобы проходить по элементам списка
+std::list<Entity*>::iterator deathenemy;
 const int ENEMY_COUNT = 3; //максимальное количество врагов в игре
 int enemiesCount = 0; //текущее количество врагов в игре
 //Заполняем список объектами врагами
@@ -158,6 +159,40 @@ std::cout << "you are lose";
 }
 }
 }
+if (p.life == false){
+    for (it = Bullets.begin(); it != Bullets.end(); )//говорим что проходимся от начала до конца
+    {// если этот объект мертв, то удаляем его
+     it = Bullets.erase(it);
+    }
+}
+//пересечение пули с врагом
+    for (deathenemy = enemies.begin(); deathenemy != enemies.end(); deathenemy++){//бежим по списку врагов
+        for (it = Bullets.begin(); it != Bullets.end(); it++){//по списку пуль
+            if (((*it)->getRect().intersects((*deathenemy)->getRect())) &&
+                ((*deathenemy)->name == "EasyEnemy") && ((*it)->name == "Bullet"))
+            {
+                cout << "Excellent hit!\n";
+
+                //при попадании пули у врага отнимается здоровье
+                (*deathenemy)-> health = 0;
+                if ((*deathenemy)-> health <= 0) {
+                    //(*deathenemy)-> life = false;
+                    //enemiesCount -= 1; //уменьшаем количество врагов в игре
+                    (*deathenemy)-> life = false;
+                    cout << "Enemy destroyed!\n";
+                }
+                (*it)-> life = false;
+
+            }
+        }
+    }
+
+for (deathenemy = enemies.begin(); deathenemy != enemies.end(); deathenemy++){
+if ((*deathenemy)-> life == false) {
+    deathenemy = enemies.erase(deathenemy);
+}
+}
+
 window.clear();
 /////////////////////////////Рисуем карту/////////////////////
 for (int i = 0; i < HEIGHT_MAP; i++)

@@ -98,3 +98,4 @@ void Enemy::update(float time)
         }
     }
 }
+
