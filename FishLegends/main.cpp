@@ -1,6 +1,7 @@
 #include "map.h"
 #include "entity.h" //Подключаем код с классом сщуностей
 #include "player.h"
+#include "bullet.h"
 #include "enemy.h"
 ////////////////////////////КЛАСС СУЩНОСТЬ////////////////////////
 ////////////////////////////КЛАСС ИГРОКА////////////////////////
@@ -8,6 +9,19 @@
 ////////////////////////////КЛАСС ПУЛИ////////////////////////
 int main()
 {
+
+    sf::SoundBuffer music;
+    music.loadFromFile("sound/music.wav");// тут загружаем в буфер что то
+    sf::Sound sound;
+    sound.setBuffer(music);
+    sound.setLoop(true);
+    sound.play();
+
+    sf::SoundBuffer bullet;
+    bullet.loadFromFile("sound/bubble.wav");// тут загружаем в буфер что то
+    sf::Sound sound2;
+    sound2.setBuffer(bullet);
+    //sound2.play();
 sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
 sf::RenderWindow window(sf::VideoMode(1248, 960, desktop.bitsPerPixel), "Lesson 12");
 Font font;//шрифт
@@ -88,6 +102,7 @@ if (event.type == sf::Event::KeyPressed)
 if (event.key.code == sf::Keyboard::Space)
 {
 Bullets.push_back(new Bullet(BulletImage, p.x, p.y, 16, 16, "Bullet", p.state));
+sound2.play();
 }
 }
 }
