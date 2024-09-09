@@ -1,7 +1,6 @@
 #include "player.h"
 
-Player::Player(Image &image, float X, float Y, int W, int H, std::string Name) :Entity(image, X,
-Y, W, H, Name){
+Player::Player(Image &image, float X, float Y, int W, int H, std::string Name) :Entity(image, X, Y, W, H, Name){
     playerScore = 0;
     state = stay;
     if (name == "Player1"){
