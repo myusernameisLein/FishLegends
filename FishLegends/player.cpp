@@ -1,7 +1,6 @@
 #include "player.h"
 
-Player::Player(Image &image, float X, float Y, int W, int H, std::string Name) :Entity(image, X,
-Y, W, H, Name){
+Player::Player(Image &image, float X, float Y, int W, int H, std::string Name) :Entity(image, X, Y, W, H, Name){
     playerScore = 0;
     state = stay;
     if (name == "Player1"){
@@ -13,21 +12,29 @@ Y, W, H, Name){
 
 
 void Player::control(){
+    dx = 0;
+    dy = 0;
+
     if (Keyboard::isKeyPressed(Keyboard::Left) or Keyboard::isKeyPressed(Keyboard::A)) {
     state = left;
-    speed = 0.1;
+    dx = -0.1;
     }
-    if (Keyboard::isKeyPressed(Keyboard::Right) or Keyboard::isKeyPressed(Keyboard::D)) {
+    else if (Keyboard::isKeyPressed(Keyboard::Right) or Keyboard::isKeyPressed(Keyboard::D)) {
     state = right;
-    speed = 0.1;
+    dx = -0.1;
     }
-    if (Keyboard::isKeyPressed(Keyboard::Up) or Keyboard::isKeyPressed(Keyboard::W)) {
+    else if (Keyboard::isKeyPressed(Keyboard::Up) or Keyboard::isKeyPressed(Keyboard::W)) {
     state = up;
-    speed = 0.1;
+    dy = -0.1;
     }
-    if (Keyboard::isKeyPressed(Keyboard::Down) or Keyboard::isKeyPressed(Keyboard::S)) {
+    else if (Keyboard::isKeyPressed(Keyboard::Down) or Keyboard::isKeyPressed(Keyboard::S)) {
     state = down;
-    speed = 0.1;
+    dy = -0.1;
+    }
+    else {
+        state = stay;
+        dx = 0;
+        dy = 0;
     }
 }
 
@@ -67,7 +74,8 @@ void Player::update(float time) //метод "оживления/обновле�
     switch (state)//делаются различные действия в зависимости от состояния
     {
         case right:{//состояние идти вправо
-        dx = speed;
+        dx = 0.1;
+        dy = 0;
         CurrentFrame += 0.005*time;
         if (CurrentFrame > 3) CurrentFrame -= 3;
         sprite.setTextureRect(IntRect(96 * int(CurrentFrame), 192, 96, 96));
@@ -75,7 +83,8 @@ void Player::update(float time) //метод "оживления/обновле�
         }
 
         case left:{//состояние идти влево
-        dx = -speed;
+        dx = -0.1;
+        dy = 0;
         CurrentFrame += 0.005*time;
         if (CurrentFrame > 3) CurrentFrame -= 3;
         sprite.setTextureRect(IntRect(96 * int(CurrentFrame), 96, 96, 96));
@@ -83,7 +92,8 @@ void Player::update(float time) //метод "оживления/обновле�
         }
 
         case up:{//идти вверх
-        dy = -speed;
+        dx = 0;
+        dy = -0.1;
         CurrentFrame += 0.005*time;
         if (CurrentFrame > 3) CurrentFrame -= 3;
         sprite.setTextureRect(IntRect(96 * int(CurrentFrame), 288, 96, 96));
@@ -91,7 +101,8 @@ void Player::update(float time) //метод "оживления/обновле�
         }
 
         case down:{//идти вниз
-        dy = speed;
+        dx = 0;
+        dy = 0.1;
         CurrentFrame += 0.005*time;
         if (CurrentFrame > 3) CurrentFrame -= 3;
         sprite.setTextureRect(IntRect(96 * int(CurrentFrame), 0, 96, 96));
@@ -99,8 +110,8 @@ void Player::update(float time) //метод "оживления/обновле�
         }
 
         case stay:{//стоим
-        dy = speed;
-        dx = speed;
+        dx = 0;
+        dy = 0;
         break;
         }
     }

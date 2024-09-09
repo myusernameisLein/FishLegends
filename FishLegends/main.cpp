@@ -1,54 +1,27 @@
 #include "map.h"
 #include "entity.h" //Подключаем код с классом сщуностей
 #include "player.h"
+#include "bullet.h"
 #include "enemy.h"
 ////////////////////////////КЛАСС СУЩНОСТЬ////////////////////////
 ////////////////////////////КЛАСС ИГРОКА////////////////////////
 ////////////////////////////КЛАСС ВРАГА////////////////////////
 ////////////////////////////КЛАСС ПУЛИ////////////////////////
-class Bullet :public Entity{//класс пули
-public:
-int direction;//направление пули
-//всё так же, только взяли в конце состояние игрока (int dir)
-//для задания направления полёта пули
-Bullet(Image &image, float X, float Y, int W, int H, std::string Name, int dir)
-:Entity(image, X, Y, W, H, Name){
-x = X;
-y = Y;
-direction = dir;
-speed = 0.8;
-w = h = 16;
-life = true;
-//выше инициализация в конструкторе
-}
-void update(float time)
-{
-switch (direction)
-{
-case 0: dx = -speed; dy = 0; break;// state = left
-case 1: dx = speed; dy = 0; break;// state = right
-case 2: dx = 0; dy = -speed; break;// state = up
-case 3: dx = 0; dy = speed; break;// state = down
-}
-if (life){
-x += dx*time;//само движение пули по х
-y += dy*time;//по у
-if (x <= 0) x = 20;// задержка пули в левой стене, чтобы при проседании кадров
-if (y <= 0) y = 20;
-if (x >= 1248) x = 1218;// задержка пули в правой стене, чтобы при проседании
-if (y >= 960) y = 930;
-for (int i = y / 48; i < (y + h) / 48; i++)//проходимся по элементам карты
-for (int j = x / 48; j < (x + w) / 48; j++)
-{
-if (TileMap[i][j] == '0')//если элемент наш тайлик земли, то
-life = false;// то пуля умирает
-}
-sprite.setPosition(x + w / 2, y + h / 2);//задается позицию пули
-}
-}
-};
 int main()
 {
+
+    sf::SoundBuffer music;
+    music.loadFromFile("sound/music.wav");// тут загружаем в буфер что то
+    sf::Sound sound;
+    sound.setBuffer(music);
+    sound.setLoop(true);
+    sound.play();
+
+    sf::SoundBuffer bullet;
+    bullet.loadFromFile("sound/bubble.wav");// тут загружаем в буфер что то
+    sf::Sound sound2;
+    sound2.setBuffer(bullet);
+    //sound2.play();
 sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
 sf::RenderWindow window(sf::VideoMode(1248, 960, desktop.bitsPerPixel), "Lesson 12");
 Font font;//шрифт
@@ -129,6 +102,7 @@ if (event.type == sf::Event::KeyPressed)
 if (event.key.code == sf::Keyboard::Space)
 {
 Bullets.push_back(new Bullet(BulletImage, p.x, p.y, 16, 16, "Bullet", p.state));
+sound2.play();
 }
 }
 }
