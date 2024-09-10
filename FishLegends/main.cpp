@@ -37,6 +37,14 @@ int main()
     Font font; // шрифт
     font.loadFromFile("Pixel Cyr.ttf"); // передаем нашему шрифту файл шрифта
 
+    auto image = sf::Image{};
+    if (!image.loadFromFile("fish.png"))
+    {
+    }
+
+    window.setIcon(image.getSize().x, image.getSize().y, image.getPixelsPtr());
+    // ...
+
     Text text("", font, 20); // создаем объект текст
     text.setColor(Color::Black); // покрасили текст в черный
     text.setStyle(Text::Regular); // обычный текст
