@@ -21,6 +21,16 @@ int main()
     sf::Sound sound2;
     sound2.setBuffer(bullet);
 
+    sf::SoundBuffer death;
+    death.loadFromFile("sound/death.wav"); // тут загружаем в буфер что-то
+    sf::Sound sound3;
+    sound3.setBuffer(death);
+
+    sf::SoundBuffer kill;
+    kill.loadFromFile("sound/kill.wav"); // тут загружаем в буфер что-то
+    sf::Sound sound4;
+    sound4.setBuffer(bullet);
+
     sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
     sf::RenderWindow window(sf::VideoMode(1248, 960, desktop.bitsPerPixel), "FISH LEGENDS");
 
@@ -165,6 +175,7 @@ int main()
                         (*deathenemy)->health = 0;
                         (*deathenemy)->life = false;
                         (*it)->life = false;
+                        sound4.play();
                     }
                 }
             }
@@ -234,7 +245,7 @@ int main()
         }
 
         // Отображаем текст "GAME OVER", если игра окончена
-        if (p.health <= 0){ p.life = false; gameOver = true;}//если жизней меньше 0, либо равно 0, то умираем
+        if (p.health <= 0){ p.life = false; gameOver = true; sound3.play();}//если жизней меньше 0, либо равно 0, то умираем
         if (gameOver) {
             window.draw(gameOverText);
         }
