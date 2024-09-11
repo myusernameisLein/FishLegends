@@ -13,20 +13,20 @@ Player::Player(Image &image, float X, float Y, int W, int H, std::string Name) :
 
 void Player::control(){
     if (Keyboard::isKeyPressed(Keyboard::Left) or Keyboard::isKeyPressed(Keyboard::A)) {
-    state = left;
-    speed = 0.1;
+        state = left;
+        speed = 0.1;
     }
     if (Keyboard::isKeyPressed(Keyboard::Right) or Keyboard::isKeyPressed(Keyboard::D)) {
-    state = right;
-    speed = 0.1;
+        state = right;
+        speed = 0.1;
     }
     if (Keyboard::isKeyPressed(Keyboard::Up) or Keyboard::isKeyPressed(Keyboard::W)) {
-    state = up;
-    speed = 0.1;
+        state = up;
+        speed = 0.1;
     }
     if (Keyboard::isKeyPressed(Keyboard::Down) or Keyboard::isKeyPressed(Keyboard::S)) {
-    state = down;
-    speed = 0.1;
+        state = down;
+        speed = 0.1;
     }
 }
 
@@ -43,21 +43,25 @@ void Player::checkCollisionWithMap(float Dx, float Dy) {
         }
 
         if (TileMap[i][j] == 's') {
-        playerScore++; //если взяли камень
-        TileMap[i][j] = ' ';
+            playerScore++; //если взяли камень
+            TileMap[i][j] = ' ';
         }
 
         if (TileMap[i][j] == 'f') {
-        health -= 40;//если взяли ядовитый цветок
-        if (health < 0) {
-                health = 0; // делаем так, чтобы здоровье не стало меньше 0
+            health -= 40;//если взяли ядовитый цветок
+            if (health < 0) {
+                    health = 0; // делаем так, чтобы здоровье не стало меньше 0
+                }
+            TileMap[i][j] = ' ';//убрали цветок
             }
-        TileMap[i][j] = ' ';//убрали цветок
-        }
 
         if (TileMap[i][j] == 'h') {
-        health += 20;//если взяли сердечко
-        TileMap[i][j] = ' ';//убрали сердечко
+            if (health == 100) {
+                health +=0;
+               } else {
+                 health += 20;//если взяли сердечко
+                }
+            TileMap[i][j] = ' ';//убрали сердечко
         }
     }
 }
@@ -69,41 +73,41 @@ void Player::update(float time) //метод "оживления/обновле�
     switch (state)//делаются различные действия в зависимости от состояния
     {
         case right:{//состояние идти вправо
-        dx = speed;
-        CurrentFrame += 0.005*time;
-        if (CurrentFrame > 3) CurrentFrame -= 3;
-        sprite.setTextureRect(IntRect(96 * int(CurrentFrame), 192, 96, 96));
-        break;
+            dx = speed;
+            CurrentFrame += 0.005*time;
+            if (CurrentFrame > 3) CurrentFrame -= 3;
+            sprite.setTextureRect(IntRect(96 * int(CurrentFrame), 192, 96, 96));
+            break;
         }
 
         case left:{//состояние идти влево
-        dx = -speed;
-        CurrentFrame += 0.005*time;
-        if (CurrentFrame > 3) CurrentFrame -= 3;
-        sprite.setTextureRect(IntRect(96 * int(CurrentFrame), 96, 96, 96));
-        break;
+            dx = -speed;
+            CurrentFrame += 0.005*time;
+            if (CurrentFrame > 3) CurrentFrame -= 3;
+            sprite.setTextureRect(IntRect(96 * int(CurrentFrame), 96, 96, 96));
+            break;
         }
 
         case up:{//идти вверх
-        dy = -speed;
-        CurrentFrame += 0.005*time;
-        if (CurrentFrame > 3) CurrentFrame -= 3;
-        sprite.setTextureRect(IntRect(96 * int(CurrentFrame), 288, 96, 96));
-        break;
+            dy = -speed;
+            CurrentFrame += 0.005*time;
+            if (CurrentFrame > 3) CurrentFrame -= 3;
+            sprite.setTextureRect(IntRect(96 * int(CurrentFrame), 288, 96, 96));
+            break;
         }
 
         case down:{//идти вниз
-        dy = speed;
-        CurrentFrame += 0.005*time;
-        if (CurrentFrame > 3) CurrentFrame -= 3;
-        sprite.setTextureRect(IntRect(96 * int(CurrentFrame), 0, 96, 96));
-        break;
+            dy = speed;
+            CurrentFrame += 0.005*time;
+            if (CurrentFrame > 3) CurrentFrame -= 3;
+            sprite.setTextureRect(IntRect(96 * int(CurrentFrame), 0, 96, 96));
+            break;
         }
 
         case stay:{//стоим
-        dy = speed;
-        dx = speed;
-        break;
+            dy = speed;
+            dx = speed;
+            break;
         }
     }
     x += dx*time; //движение по “X”
