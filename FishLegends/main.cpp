@@ -3,6 +3,7 @@
 #include "player.h"
 #include "bullet.h"
 #include "enemy.h"
+#include "fallingitem.h"
 
 int main()
 {
@@ -52,7 +53,12 @@ int main()
     gameOverText.setString("GAME OVER");
     gameOverText.setPosition(250, 350);
 
+    int createFallingItemTimer = 0;
+    std::list<Entity*> fallingItems;
+    Image itemImage;
+    itemImage.loadFromFile("images/item.png");  // Загружаем картинку для предмета
         // Загрузка фонов (три разных картинки)
+
      Image backgroundImage1, backgroundImage2, backgroundImage3;
      backgroundImage1.loadFromFile("images/bg.png");
      backgroundImage2.loadFromFile("images/bg2.png");
@@ -158,6 +164,38 @@ int main()
                         } else if (currentBackground == 2) {
                             window.draw(backgroundSprite3);
                         }
+
+
+                        if (!gameOver) {  // Спавн новых предметов только если игра не окончена
+                                            createFallingItemTimer += time;
+                                            if (createFallingItemTimer > 2000) {
+                                                float xr = 48 + rand() % (window.getSize().x - 48 - 32);  // Случайная координата X с учетом границ
+                                                fallingItems.push_back(new FallingItem(itemImage, xr, -50, 32, 32, "FallingItem"));
+                                                createFallingItemTimer = 0;
+                                            }
+                                        }
+
+                                                for (auto it = fallingItems.begin(); it != fallingItems.end(); ) {
+                                                    if (!gameOver) {
+                                                            (*it)->update(time);  // Обновляем предметы только если игра не окончена
+                                                        }
+
+                                                    if ((*it)->getRect().intersects(p.getRect())) {
+                                                        (*it)->life = false;
+                                                        sound2.play();
+                                                    }
+
+                                                    if ((*it)->getRect().left < 48 || (*it)->getRect().left + (*it)->getRect().width > window.getSize().x - 48) {
+                                                        (*it)->life = false;
+                                                    }
+
+                                                    if (!(*it)->life) {
+                                                        it = fallingItems.erase(it);
+                                                    } else {
+                                                        window.draw((*it)->sprite);
+                                                        ++it;
+                                                    }
+                                                }
 
         if (!gameOver) {
             // Оживляем объекты только если игра не окончена
