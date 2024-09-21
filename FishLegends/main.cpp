@@ -89,9 +89,6 @@ int main()
 
     bool gameOver = false; // флаг состояния "игра окончена"
 
-    int createObjectForMapTimerAlga = 0;
-    int createObjectForMapTimerSnake = 0;
-    int createObjectForMapTimerHeart = 0;
     int createObjectForMapTimerEnemy = 0;
 
     while (window.isOpen())
@@ -100,29 +97,9 @@ int main()
         if (!gameOver && p.life) gameTime = gameTimeClock.getElapsedTime().asSeconds(); // игровое время
         clock.restart();
         time = time / 600;
-        createObjectForMapTimerAlga += time;//наращиваем таймер
-        createObjectForMapTimerSnake += time;
-        createObjectForMapTimerHeart += time;
         createObjectForMapTimerEnemy += time;
+
         if (!gameOver) {
-            // Генерация водорослей
-            if (createObjectForMapTimerAlga > 3000) {
-                p.randomMapGenerateAlga(); // генерация водорослей
-                createObjectForMapTimerAlga = 0; // сброс таймера
-            }
-
-            // Генерация змей
-            if (createObjectForMapTimerSnake > 4800) {
-                p.randomMapGenerateSnake(); // генерация змей
-                createObjectForMapTimerSnake = 0; // сброс таймера
-            }
-
-            // Генерация сердец
-            if (createObjectForMapTimerHeart > 9000) {
-                p.randomMapGenerateHeart(); // генерация сердец
-                createObjectForMapTimerHeart = 0; // сброс таймера
-            }
-
             if (createObjectForMapTimerEnemy > 4000) {
                         float xr = 300 + rand() % 500;
                         float yr = 300 + rand() % 350;
@@ -212,10 +189,7 @@ int main()
         for (int i = 0; i < HEIGHT_MAP; i++) {
             for (int j = 0; j < WIDTH_MAP; j++) {
                 if (p.TileMap[i][j] == ' ') s_map.setTextureRect(IntRect(0, 0, 48, 48));
-                if (p.TileMap[i][j] == 's') s_map.setTextureRect(IntRect(48, 0, 48, 48));
                 if ((p.TileMap[i][j] == '0')) s_map.setTextureRect(IntRect(96, 0, 48, 48));
-                if ((p.TileMap[i][j] == 'f')) s_map.setTextureRect(IntRect(144, 0, 48, 48)); // цветок
-                if ((p.TileMap[i][j] == 'h')) s_map.setTextureRect(IntRect(192, 0, 48, 48)); // сердце
                 s_map.setPosition(j * 48, i * 48);
                 window.draw(s_map);
             }
