@@ -6,30 +6,30 @@
 
 int main()
 {
-    sf::SoundBuffer music;
+    SoundBuffer music;
     music.loadFromFile("sound/music.wav"); // тут загружаем в буфер что-то
-    sf::Sound sound;
+    Sound sound;
     sound.setBuffer(music);
     sound.setLoop(true);
     sound.play();
 
-    sf::SoundBuffer bullet;
+    SoundBuffer bullet;
     bullet.loadFromFile("sound/bubble.wav"); // тут загружаем в буфер что-то
-    sf::Sound sound2;
+    Sound sound2;
     sound2.setBuffer(bullet);
 
-    sf::SoundBuffer death;
+    SoundBuffer death;
     death.loadFromFile("sound/death.wav"); // тут загружаем в буфер что-то
-    sf::Sound sound3;
+    Sound sound3;
     sound3.setBuffer(death);
 
-    sf::SoundBuffer kill;
+    SoundBuffer kill;
     kill.loadFromFile("sound/kill.wav"); // тут загружаем в буфер что-то
-    sf::Sound sound4;
+    Sound sound4;
     sound4.setBuffer(kill);
 
-    sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
-    sf::RenderWindow window(sf::VideoMode(1248, 960, desktop.bitsPerPixel), "FISH LEGENDS");
+    VideoMode desktop = VideoMode::getDesktopMode();
+    RenderWindow window(VideoMode(1248, 960, desktop.bitsPerPixel), "FISH LEGENDS");
 
     Font font; // шрифт
     font.loadFromFile("Pixel Cyr.ttf"); // передаем нашему шрифту файл шрифта
@@ -52,14 +52,33 @@ int main()
     gameOverText.setString("GAME OVER");
     gameOverText.setPosition(250, 350);
 
-    Image map_image; // объект изображения для карты
-    map_image.loadFromFile("images/map_new.png"); // загружаем файл для карты
-    Texture map; // текстура карты
-    map.loadFromImage(map_image); // заряжаем текстуру картинкой
-    Sprite s_map; // создаём спрайт для карты
-    s_map.setTexture(map); // заливаем текстуру спрайтом
+        // Загрузка фонов (три разных картинки)
+     Image backgroundImage1, backgroundImage2, backgroundImage3;
+     backgroundImage1.loadFromFile("images/bg.png");
+     backgroundImage2.loadFromFile("images/bg2.png");
+     backgroundImage3.loadFromFile("images/bg3.png");
+
+     Texture backgroundTexture1, backgroundTexture2, backgroundTexture3;
+     backgroundTexture1.loadFromImage(backgroundImage1);
+     backgroundTexture2.loadFromImage(backgroundImage2);
+     backgroundTexture3.loadFromImage(backgroundImage3);
+
+     Sprite backgroundSprite1, backgroundSprite2, backgroundSprite3;
+     backgroundSprite1.setTexture(backgroundTexture1);
+     backgroundSprite2.setTexture(backgroundTexture2);
+     backgroundSprite3.setTexture(backgroundTexture3);
+
+     // Масштабируем фоны под размер окна
+     backgroundSprite1.setScale(window.getSize().x / 1248.0f, window.getSize().y / 960.0f);
+     backgroundSprite2.setScale(window.getSize().x / 1248.0f, window.getSize().y / 960.0f);
+     backgroundSprite3.setScale(window.getSize().x / 1248.0f, window.getSize().y / 960.0f);
 
     Clock clock;
+
+    Clock backgroundClock;
+    float switchTime = 0.5f; // интервал смены фона в секундах
+    int currentBackground = 0; // текущий фон (0, 1, 2)
+
     Clock gameTimeClock; // переменная игрового времени
     int gameTime = 0; // игровое время
 
@@ -123,6 +142,23 @@ int main()
             }
         }
 
+        if (backgroundClock.getElapsedTime().asSeconds() > switchTime) {
+                            currentBackground = (currentBackground + 1) % 3; // переключаем между 0, 1 и 2
+                            backgroundClock.restart(); // сбрасываем таймер
+                        }
+
+                        // Очищаем окно
+                        window.clear();
+
+                        // Рисуем фон в зависимости от текущего индекса фона
+                        if (currentBackground == 0) {
+                            window.draw(backgroundSprite1);
+                        } else if (currentBackground == 1) {
+                            window.draw(backgroundSprite2);
+                        } else if (currentBackground == 2) {
+                            window.draw(backgroundSprite3);
+                        }
+
         if (!gameOver) {
             // Оживляем объекты только если игра не окончена
             p.update(time);
@@ -180,18 +216,6 @@ int main()
                 } else {
                     ++it;
                 }
-            }
-        }
-
-        window.clear();
-
-        // Рисуем карту
-        for (int i = 0; i < HEIGHT_MAP; i++) {
-            for (int j = 0; j < WIDTH_MAP; j++) {
-                if (p.TileMap[i][j] == ' ') s_map.setTextureRect(IntRect(0, 0, 48, 48));
-                if ((p.TileMap[i][j] == '0')) s_map.setTextureRect(IntRect(96, 0, 48, 48));
-                s_map.setPosition(j * 48, i * 48);
-                window.draw(s_map);
             }
         }
 
