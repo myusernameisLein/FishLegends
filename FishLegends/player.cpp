@@ -7,6 +7,10 @@ Player::Player(Image &image, float X, float Y, int W, int H, std::string Name) :
         //Задаем спрайту один прямоугольник для
         //вывода одного игрока. IntRect – для приведения типов
         sprite.setTextureRect(IntRect(0, 0, w, h));
+        currentsize = 1;
+        sizeIncreaseRate = 1.1f;
+        originalWidth = w;
+        originalHeight = h;
     }
 }
 
@@ -120,3 +124,10 @@ void Player::update(float time) //метод "оживления/обновле�
 
     }
 }
+
+void Player::increaseSize() {
+        w *= sizeIncreaseRate;
+        h *= sizeIncreaseRate;
+        currentsize += 0.1;
+        sprite.setScale(w / originalWidth, h / originalHeight);
+    }

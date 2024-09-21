@@ -181,6 +181,7 @@ int main()
                                                         }
 
                                                     if ((*it)->getRect().intersects(p.getRect())) {
+                                                        p.increaseSize();
                                                         (*it)->life = false;
                                                         sound2.play();
                                                     }
@@ -224,6 +225,19 @@ int main()
                 }
             }
 
+            if (p.currentsize >= 1.5f && !p.isSizeMax) {
+                p.isSizeMax = true;  // Фиксируем достижение размера
+                p.sizeReachedTime = gameTimeClock.getElapsedTime().asSeconds();  // Запоминаем время
+            }
+
+            if (p.isSizeMax && gameTimeClock.getElapsedTime().asSeconds() - p.sizeReachedTime >= 10.0f) {
+                p.currentsize = 1.0f;  // Возвращаем исходный размер
+                p.isSizeMax = false;     // Сбрасываем флаг
+                p.w = 72;
+                p.h = 72;
+                p.sprite.setScale(p.w / p.originalWidth, p.h / p.originalHeight);
+            }
+
             // Пересечение пули с врагом
             for (deathenemy = enemies.begin(); deathenemy != enemies.end(); deathenemy++) {
                 for (it = Bullets.begin(); it != Bullets.end(); it++) {
@@ -258,11 +272,12 @@ int main()
         }
 
         // Объявляем переменные здоровья и времени
-        std::ostringstream playerHealthString, gameTimeString;
+        std::ostringstream playerHealthString, gameTimeString, playerSize;
         playerHealthString << p.health;
         gameTimeString << gameTime;
+        playerSize << p.currentsize;
 
-        text.setString("Health: " + playerHealthString.str() + "\nTime: " + gameTimeString.str());
+        text.setString("Health: " + playerHealthString.str() + "\nTime: " + gameTimeString.str() + "\nSize: " + playerSize.str());
         text.setPosition(50, 50);
         window.draw(text);
 
