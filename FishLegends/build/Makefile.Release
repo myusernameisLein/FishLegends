@@ -46,19 +46,27 @@ OBJECTS_DIR   = release
 SOURCES       = ..\main.cpp \
 		..\entity.cpp \
 		..\player.cpp \
-		..\enemy.cpp 
+		..\enemy.cpp \
+		..\bullet.cpp \
+		..\fallingitem.cpp 
 OBJECTS       = release/main.o \
 		release/entity.o \
 		release/player.o \
-		release/enemy.o
+		release/enemy.o \
+		release/bullet.o \
+		release/fallingitem.o
 
 DIST          =  map.h \
 		entity.h \
 		player.h \
-		enemy.h ..\main.cpp \
+		enemy.h \
+		bullet.h \
+		fallingitem.h ..\main.cpp \
 		..\entity.cpp \
 		..\player.cpp \
-		..\enemy.cpp
+		..\enemy.cpp \
+		..\bullet.cpp \
+		..\fallingitem.cpp
 QMAKE_TARGET  = FishLegends
 DESTDIR        = release\ #avoid trailing-slash linebreak
 TARGET         = FishLegends.exe
@@ -97,7 +105,7 @@ dist:
 	$(ZIP) FishLegends.zip $(SOURCES) $(DIST) ..\..\FishLegends.pro ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\features\spec_pre.prf ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\qdevice.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\features\device_config.prf ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\common\shell-win32.conf ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\qconfig.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_axbase.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_axbase_private.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_axcontainer.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_axcontainer_private.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_axserver.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_axserver_private.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_bluetooth.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_bluetooth_private.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_bootstrap_private.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_clucene_private.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_concurrent.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_concurrent_private.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_core.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_core_private.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_dbus.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_dbus_private.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_declarative.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_declarative_private.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_designer.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_designer_private.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_designercomponents_private.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_enginio.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_enginio_private.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_gui.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_gui_private.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_help.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_help_private.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_location.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_location_private.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_multimedia.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_multimedia_private.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_multimediawidgets.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_multimediawidgets_private.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_network.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_network_private.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_nfc.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_nfc_private.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_opengl.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_opengl_private.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_openglextensions.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_openglextensions_private.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_platformsupport_private.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_positioning.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_positioning_private.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_printsupport.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_printsupport_private.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_qml.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_qml_private.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_qmldevtools_private.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_qmltest.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_qmltest_private.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_quick.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_quick_private.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_quickparticles_private.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_quickwidgets.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_quickwidgets_private.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_script.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_script_private.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_scripttools.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_scripttools_private.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_sensors.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_sensors_private.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_serialport.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_serialport_private.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_sql.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_sql_private.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_svg.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_svg_private.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_testlib.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_testlib_private.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_uitools.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_uitools_private.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_webchannel.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_webchannel_private.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_webkit.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_webkit_private.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_webkitwidgets.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_webkitwidgets_private.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_websockets.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_websockets_private.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_webview.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_webview_private.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_widgets.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_widgets_private.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_winextras.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_winextras_private.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_xml.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_xml_private.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_xmlpatterns.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\modules\qt_lib_xmlpatterns_private.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\features\qt_functions.prf ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\features\qt_config.prf ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\features\win32\qt_config.prf ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\win32-g++\qmake.conf ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\features\spec_post.prf ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\features\exclusive_builds.prf ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\features\default_pre.prf ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\features\win32\default_pre.prf ..\deployment.pri ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\features\resolve_config.prf ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\features\exclusive_builds_post.prf ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\features\default_post.prf ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\features\build_pass.prf ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\features\win32\console.prf ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\features\win32\rtti.prf ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\features\precompile_header.prf ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\features\warn_on.prf ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\features\testcase_targets.prf ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\features\exceptions.prf ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\features\yacc.prf ..\..\..\Qt\Qt5.4.2\5.4\mingw491_32\mkspecs\features\lex.prf ..\FishLegends.pro  NO_PCH_SOURCES YACCSOURCES YACCSOURCES LEXSOURCES 
 
 clean: compiler_clean 
-	-$(DEL_FILE) release\main.o release\entity.o release\player.o release\enemy.o
+	-$(DEL_FILE) release\main.o release\entity.o release\player.o release\enemy.o release\bullet.o release\fallingitem.o
 
 distclean: clean 
 	-$(DEL_FILE) $(DESTDIR_TARGET)
@@ -189,9 +197,28 @@ release/main.o: ../main.cpp ../map.h \
 		../SFML/Graphics/Shader.hpp \
 		../SFML/Graphics/Sprite.hpp \
 		../SFML/Graphics/Text.hpp \
+		../SFML/Audio.hpp \
+		../SFML/Audio/InputSoundFile.hpp \
+		../SFML/Audio/Export.hpp \
+		../SFML/Audio/Listener.hpp \
+		../SFML/Audio/Music.hpp \
+		../SFML/Audio/SoundStream.hpp \
+		../SFML/Audio/SoundSource.hpp \
+		../SFML/Audio/AlResource.hpp \
+		../SFML/Audio/OutputSoundFile.hpp \
+		../SFML/Audio/Sound.hpp \
+		../SFML/Audio/SoundBuffer.hpp \
+		../SFML/Audio/SoundBufferRecorder.hpp \
+		../SFML/Audio/SoundRecorder.hpp \
+		../SFML/Audio/SoundFileFactory.hpp \
+		../SFML/Audio/SoundFileFactory.inl \
+		../SFML/Audio/SoundFileReader.hpp \
+		../SFML/Audio/SoundFileWriter.hpp \
 		../entity.h \
 		../player.h \
-		../enemy.h
+		../bullet.h \
+		../enemy.h \
+		../fallingitem.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\main.o ..\main.cpp
 
 release/entity.o: ../entity.cpp ../entity.h \
@@ -264,7 +291,24 @@ release/entity.o: ../entity.cpp ../entity.h \
 		../SFML/Graphics/RenderWindow.hpp \
 		../SFML/Graphics/Shader.hpp \
 		../SFML/Graphics/Sprite.hpp \
-		../SFML/Graphics/Text.hpp
+		../SFML/Graphics/Text.hpp \
+		../SFML/Audio.hpp \
+		../SFML/Audio/InputSoundFile.hpp \
+		../SFML/Audio/Export.hpp \
+		../SFML/Audio/Listener.hpp \
+		../SFML/Audio/Music.hpp \
+		../SFML/Audio/SoundStream.hpp \
+		../SFML/Audio/SoundSource.hpp \
+		../SFML/Audio/AlResource.hpp \
+		../SFML/Audio/OutputSoundFile.hpp \
+		../SFML/Audio/Sound.hpp \
+		../SFML/Audio/SoundBuffer.hpp \
+		../SFML/Audio/SoundBufferRecorder.hpp \
+		../SFML/Audio/SoundRecorder.hpp \
+		../SFML/Audio/SoundFileFactory.hpp \
+		../SFML/Audio/SoundFileFactory.inl \
+		../SFML/Audio/SoundFileReader.hpp \
+		../SFML/Audio/SoundFileWriter.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\entity.o ..\entity.cpp
 
 release/player.o: ../player.cpp ../player.h \
@@ -338,7 +382,24 @@ release/player.o: ../player.cpp ../player.h \
 		../SFML/Graphics/RenderWindow.hpp \
 		../SFML/Graphics/Shader.hpp \
 		../SFML/Graphics/Sprite.hpp \
-		../SFML/Graphics/Text.hpp
+		../SFML/Graphics/Text.hpp \
+		../SFML/Audio.hpp \
+		../SFML/Audio/InputSoundFile.hpp \
+		../SFML/Audio/Export.hpp \
+		../SFML/Audio/Listener.hpp \
+		../SFML/Audio/Music.hpp \
+		../SFML/Audio/SoundStream.hpp \
+		../SFML/Audio/SoundSource.hpp \
+		../SFML/Audio/AlResource.hpp \
+		../SFML/Audio/OutputSoundFile.hpp \
+		../SFML/Audio/Sound.hpp \
+		../SFML/Audio/SoundBuffer.hpp \
+		../SFML/Audio/SoundBufferRecorder.hpp \
+		../SFML/Audio/SoundRecorder.hpp \
+		../SFML/Audio/SoundFileFactory.hpp \
+		../SFML/Audio/SoundFileFactory.inl \
+		../SFML/Audio/SoundFileReader.hpp \
+		../SFML/Audio/SoundFileWriter.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\player.o ..\player.cpp
 
 release/enemy.o: ../enemy.cpp ../enemy.h \
@@ -412,8 +473,207 @@ release/enemy.o: ../enemy.cpp ../enemy.h \
 		../SFML/Graphics/RenderWindow.hpp \
 		../SFML/Graphics/Shader.hpp \
 		../SFML/Graphics/Sprite.hpp \
-		../SFML/Graphics/Text.hpp
+		../SFML/Graphics/Text.hpp \
+		../SFML/Audio.hpp \
+		../SFML/Audio/InputSoundFile.hpp \
+		../SFML/Audio/Export.hpp \
+		../SFML/Audio/Listener.hpp \
+		../SFML/Audio/Music.hpp \
+		../SFML/Audio/SoundStream.hpp \
+		../SFML/Audio/SoundSource.hpp \
+		../SFML/Audio/AlResource.hpp \
+		../SFML/Audio/OutputSoundFile.hpp \
+		../SFML/Audio/Sound.hpp \
+		../SFML/Audio/SoundBuffer.hpp \
+		../SFML/Audio/SoundBufferRecorder.hpp \
+		../SFML/Audio/SoundRecorder.hpp \
+		../SFML/Audio/SoundFileFactory.hpp \
+		../SFML/Audio/SoundFileFactory.inl \
+		../SFML/Audio/SoundFileReader.hpp \
+		../SFML/Audio/SoundFileWriter.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\enemy.o ..\enemy.cpp
+
+release/bullet.o: ../bullet.cpp ../bullet.h \
+		../entity.h \
+		../map.h \
+		../SFML/Graphics.hpp \
+		../SFML/Window.hpp \
+		../SFML/System.hpp \
+		../SFML/Config.hpp \
+		../SFML/System/Clock.hpp \
+		../SFML/System/Export.hpp \
+		../SFML/System/Time.hpp \
+		../SFML/System/Err.hpp \
+		../SFML/System/FileInputStream.hpp \
+		../SFML/System/InputStream.hpp \
+		../SFML/System/NonCopyable.hpp \
+		../SFML/System/Lock.hpp \
+		../SFML/System/MemoryInputStream.hpp \
+		../SFML/System/Mutex.hpp \
+		../SFML/System/Sleep.hpp \
+		../SFML/System/String.hpp \
+		../SFML/System/Utf.hpp \
+		../SFML/System/Utf.inl \
+		../SFML/System/String.inl \
+		../SFML/System/Thread.hpp \
+		../SFML/System/Thread.inl \
+		../SFML/System/ThreadLocal.hpp \
+		../SFML/System/ThreadLocalPtr.hpp \
+		../SFML/System/ThreadLocalPtr.inl \
+		../SFML/System/Vector2.hpp \
+		../SFML/System/Vector2.inl \
+		../SFML/System/Vector3.hpp \
+		../SFML/System/Vector3.inl \
+		../SFML/Window/Context.hpp \
+		../SFML/Window/Export.hpp \
+		../SFML/Window/GlResource.hpp \
+		../SFML/Window/ContextSettings.hpp \
+		../SFML/Window/Event.hpp \
+		../SFML/Window/Joystick.hpp \
+		../SFML/Window/Keyboard.hpp \
+		../SFML/Window/Mouse.hpp \
+		../SFML/Window/Sensor.hpp \
+		../SFML/Window/Touch.hpp \
+		../SFML/Window/VideoMode.hpp \
+		../SFML/Window/Window.hpp \
+		../SFML/Window/WindowHandle.hpp \
+		../SFML/Window/WindowStyle.hpp \
+		../SFML/Graphics/BlendMode.hpp \
+		../SFML/Graphics/Export.hpp \
+		../SFML/Graphics/CircleShape.hpp \
+		../SFML/Graphics/Shape.hpp \
+		../SFML/Graphics/Drawable.hpp \
+		../SFML/Graphics/RenderStates.hpp \
+		../SFML/Graphics/Transform.hpp \
+		../SFML/Graphics/Rect.hpp \
+		../SFML/Graphics/Rect.inl \
+		../SFML/Graphics/Transformable.hpp \
+		../SFML/Graphics/VertexArray.hpp \
+		../SFML/Graphics/Vertex.hpp \
+		../SFML/Graphics/Color.hpp \
+		../SFML/Graphics/PrimitiveType.hpp \
+		../SFML/Graphics/ConvexShape.hpp \
+		../SFML/Graphics/Font.hpp \
+		../SFML/Graphics/Glyph.hpp \
+		../SFML/Graphics/Texture.hpp \
+		../SFML/Graphics/Image.hpp \
+		../SFML/Graphics/RectangleShape.hpp \
+		../SFML/Graphics/RenderTarget.hpp \
+		../SFML/Graphics/View.hpp \
+		../SFML/Graphics/RenderTexture.hpp \
+		../SFML/Graphics/RenderWindow.hpp \
+		../SFML/Graphics/Shader.hpp \
+		../SFML/Graphics/Sprite.hpp \
+		../SFML/Graphics/Text.hpp \
+		../SFML/Audio.hpp \
+		../SFML/Audio/InputSoundFile.hpp \
+		../SFML/Audio/Export.hpp \
+		../SFML/Audio/Listener.hpp \
+		../SFML/Audio/Music.hpp \
+		../SFML/Audio/SoundStream.hpp \
+		../SFML/Audio/SoundSource.hpp \
+		../SFML/Audio/AlResource.hpp \
+		../SFML/Audio/OutputSoundFile.hpp \
+		../SFML/Audio/Sound.hpp \
+		../SFML/Audio/SoundBuffer.hpp \
+		../SFML/Audio/SoundBufferRecorder.hpp \
+		../SFML/Audio/SoundRecorder.hpp \
+		../SFML/Audio/SoundFileFactory.hpp \
+		../SFML/Audio/SoundFileFactory.inl \
+		../SFML/Audio/SoundFileReader.hpp \
+		../SFML/Audio/SoundFileWriter.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\bullet.o ..\bullet.cpp
+
+release/fallingitem.o: ../fallingitem.cpp ../fallingitem.h \
+		../entity.h \
+		../map.h \
+		../SFML/Graphics.hpp \
+		../SFML/Window.hpp \
+		../SFML/System.hpp \
+		../SFML/Config.hpp \
+		../SFML/System/Clock.hpp \
+		../SFML/System/Export.hpp \
+		../SFML/System/Time.hpp \
+		../SFML/System/Err.hpp \
+		../SFML/System/FileInputStream.hpp \
+		../SFML/System/InputStream.hpp \
+		../SFML/System/NonCopyable.hpp \
+		../SFML/System/Lock.hpp \
+		../SFML/System/MemoryInputStream.hpp \
+		../SFML/System/Mutex.hpp \
+		../SFML/System/Sleep.hpp \
+		../SFML/System/String.hpp \
+		../SFML/System/Utf.hpp \
+		../SFML/System/Utf.inl \
+		../SFML/System/String.inl \
+		../SFML/System/Thread.hpp \
+		../SFML/System/Thread.inl \
+		../SFML/System/ThreadLocal.hpp \
+		../SFML/System/ThreadLocalPtr.hpp \
+		../SFML/System/ThreadLocalPtr.inl \
+		../SFML/System/Vector2.hpp \
+		../SFML/System/Vector2.inl \
+		../SFML/System/Vector3.hpp \
+		../SFML/System/Vector3.inl \
+		../SFML/Window/Context.hpp \
+		../SFML/Window/Export.hpp \
+		../SFML/Window/GlResource.hpp \
+		../SFML/Window/ContextSettings.hpp \
+		../SFML/Window/Event.hpp \
+		../SFML/Window/Joystick.hpp \
+		../SFML/Window/Keyboard.hpp \
+		../SFML/Window/Mouse.hpp \
+		../SFML/Window/Sensor.hpp \
+		../SFML/Window/Touch.hpp \
+		../SFML/Window/VideoMode.hpp \
+		../SFML/Window/Window.hpp \
+		../SFML/Window/WindowHandle.hpp \
+		../SFML/Window/WindowStyle.hpp \
+		../SFML/Graphics/BlendMode.hpp \
+		../SFML/Graphics/Export.hpp \
+		../SFML/Graphics/CircleShape.hpp \
+		../SFML/Graphics/Shape.hpp \
+		../SFML/Graphics/Drawable.hpp \
+		../SFML/Graphics/RenderStates.hpp \
+		../SFML/Graphics/Transform.hpp \
+		../SFML/Graphics/Rect.hpp \
+		../SFML/Graphics/Rect.inl \
+		../SFML/Graphics/Transformable.hpp \
+		../SFML/Graphics/VertexArray.hpp \
+		../SFML/Graphics/Vertex.hpp \
+		../SFML/Graphics/Color.hpp \
+		../SFML/Graphics/PrimitiveType.hpp \
+		../SFML/Graphics/ConvexShape.hpp \
+		../SFML/Graphics/Font.hpp \
+		../SFML/Graphics/Glyph.hpp \
+		../SFML/Graphics/Texture.hpp \
+		../SFML/Graphics/Image.hpp \
+		../SFML/Graphics/RectangleShape.hpp \
+		../SFML/Graphics/RenderTarget.hpp \
+		../SFML/Graphics/View.hpp \
+		../SFML/Graphics/RenderTexture.hpp \
+		../SFML/Graphics/RenderWindow.hpp \
+		../SFML/Graphics/Shader.hpp \
+		../SFML/Graphics/Sprite.hpp \
+		../SFML/Graphics/Text.hpp \
+		../SFML/Audio.hpp \
+		../SFML/Audio/InputSoundFile.hpp \
+		../SFML/Audio/Export.hpp \
+		../SFML/Audio/Listener.hpp \
+		../SFML/Audio/Music.hpp \
+		../SFML/Audio/SoundStream.hpp \
+		../SFML/Audio/SoundSource.hpp \
+		../SFML/Audio/AlResource.hpp \
+		../SFML/Audio/OutputSoundFile.hpp \
+		../SFML/Audio/Sound.hpp \
+		../SFML/Audio/SoundBuffer.hpp \
+		../SFML/Audio/SoundBufferRecorder.hpp \
+		../SFML/Audio/SoundRecorder.hpp \
+		../SFML/Audio/SoundFileFactory.hpp \
+		../SFML/Audio/SoundFileFactory.inl \
+		../SFML/Audio/SoundFileReader.hpp \
+		../SFML/Audio/SoundFileWriter.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\fallingitem.o ..\fallingitem.cpp
 
 ####### Install
 

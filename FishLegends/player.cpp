@@ -73,41 +73,41 @@ void Player::update(float time) //метод "оживления/обновле�
     switch (state)//делаются различные действия в зависимости от состояния
     {
         case right:{//состояние идти вправо
-            dx = speed;
-            CurrentFrame += 0.005*time;
-            if (CurrentFrame > 3) CurrentFrame -= 3;
-            sprite.setTextureRect(IntRect(96 * int(CurrentFrame), 192, 96, 96));
-            break;
+        dx = speed;
+        CurrentFrame += 0.005*time;
+        if (CurrentFrame > 3) CurrentFrame -= 3;
+        sprite.setTextureRect(IntRect(72 * int(CurrentFrame), 144, 72, 72));
+        break;
         }
 
         case left:{//состояние идти влево
-            dx = -speed;
-            CurrentFrame += 0.005*time;
-            if (CurrentFrame > 3) CurrentFrame -= 3;
-            sprite.setTextureRect(IntRect(96 * int(CurrentFrame), 96, 96, 96));
-            break;
+        dx = -speed;
+        CurrentFrame += 0.005*time;
+        if (CurrentFrame > 3) CurrentFrame -= 3;
+        sprite.setTextureRect(IntRect(72 * int(CurrentFrame), 72, 72, 72));
+        break;
         }
 
         case up:{//идти вверх
-            dy = -speed;
-            CurrentFrame += 0.005*time;
-            if (CurrentFrame > 3) CurrentFrame -= 3;
-            sprite.setTextureRect(IntRect(96 * int(CurrentFrame), 288, 96, 96));
-            break;
+        dy = -speed;
+        CurrentFrame += 0.005*time;
+        if (CurrentFrame > 3) CurrentFrame -= 3;
+        sprite.setTextureRect(IntRect(72 * int(CurrentFrame), 210, 72, 72));
+        break;
         }
 
         case down:{//идти вниз
-            dy = speed;
-            CurrentFrame += 0.005*time;
-            if (CurrentFrame > 3) CurrentFrame -= 3;
-            sprite.setTextureRect(IntRect(96 * int(CurrentFrame), 0, 96, 96));
-            break;
+        dy = speed;
+        CurrentFrame += 0.005*time;
+        if (CurrentFrame > 3) CurrentFrame -= 3;
+        sprite.setTextureRect(IntRect(72 * int(CurrentFrame), 0, 72, 72));
+        break;
         }
 
         case stay:{//стоим
-            dy = speed;
-            dx = speed;
-            break;
+        dy = speed;
+        dx = speed;
+        break;
         }
     }
     x += dx*time; //движение по “X”

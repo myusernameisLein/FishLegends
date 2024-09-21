@@ -95,7 +95,7 @@ int main()
     Image BulletImage; // изображение для пули
     BulletImage.loadFromFile("images/bullet.png"); // загрузили картинку в объект изображения
 
-    Player p(heroImage, 100, 100, 96, 96, "Player1"); // объект класса игрока
+    Player p(heroImage, 100, 100, 72, 72, "Player1"); // объект класса игрока
     std::list<Entity*> enemies; // список врагов
     std::list<Entity*> Bullets; // список пуль
     std::list<Entity*>::iterator it; // итератор для прохода по элементам списка
