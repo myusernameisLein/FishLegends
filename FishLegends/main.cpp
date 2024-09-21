@@ -230,7 +230,7 @@ int main()
                 p.sizeReachedTime = gameTimeClock.getElapsedTime().asSeconds();  // Запоминаем время
             }
 
-            if (p.isSizeMax && gameTimeClock.getElapsedTime().asSeconds() - p.sizeReachedTime >= 10.0f) {
+            if (p.isSizeMax && gameTimeClock.getElapsedTime().asSeconds() - p.sizeReachedTime >= 7.0f) {
                 p.currentsize = 1.0f;  // Возвращаем исходный размер
                 p.isSizeMax = false;     // Сбрасываем флаг
                 p.w = 72;
@@ -239,15 +239,19 @@ int main()
             }
 
             // Пересечение пули с врагом
-            for (deathenemy = enemies.begin(); deathenemy != enemies.end(); deathenemy++) {
-                for (it = Bullets.begin(); it != Bullets.end(); it++) {
-                    if (((*it)->getRect().intersects((*deathenemy)->getRect())) &&
-                        ((*deathenemy)->name == "EasyEnemy") && ((*it)->name == "Bullet")) {
+            if (p.life) {
+                for (it = enemies.begin(); it != enemies.end(); it++) {
+                    if ((p.getRect().intersects((*it)->getRect())) && ((*it)->name == "EasyEnemy") && (p.currentsize < 1.5)) {
+                        p.health = 0;
+                        p.life = false;
+                        gameOver = true; // устанавливаем флаг "игра окончена"
+                        sound3.play();
 
-                        (*deathenemy)->health = 0;
-                        (*deathenemy)->life = false;
-                        (*it)->life = false;
-                        sound4.play();
+                    }
+                    else if ((p.getRect().intersects((*it)->getRect())) && ((*it)->name == "EasyEnemy") && (p.currentsize >= 1.5)) {
+                           (*it)->life = false;  // Враг умирает
+                        sound3.play();
+
                     }
                 }
             }
