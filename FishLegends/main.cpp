@@ -56,6 +56,21 @@ int main()
     Sound sound4;
     sound4.setBuffer(kill);
 
+    SoundBuffer hum;
+    hum.loadFromFile("sound/hum.wav"); // тут загружаем в буфер что-то
+    Sound sound5;
+    sound5.setBuffer(hum);
+
+    SoundBuffer eatfish;
+    eatfish.loadFromFile("sound/eatfish.wav"); // тут загружаем в буфер что-то
+    Sound sound6;
+    sound6.setBuffer(eatfish);
+
+    SoundBuffer rush;
+    rush.loadFromFile("sound/rush.wav"); // тут загружаем в буфер что-то
+    Sound sound7;
+    sound7.setBuffer(rush);
+
     float countdownTime = 0.0f;          // Время таймера (начинаем с 0)
         sf::Clock countdownClock;            // Часы для отсчета времени
         bool isCountdownActive = false;      // Флаг, активен ли таймер
@@ -244,7 +259,7 @@ int main()
                                                     if ((*it)->getRect().intersects(p.getRect())) {
                                                         p.increaseSize();
                                                         (*it)->life = false;
-                                                        sound2.play();
+                                                        sound5.play();
                                                     }
 
                                                     if ((*it)->getRect().left < 48 || (*it)->getRect().left + (*it)->getRect().width > window.getSize().x - 48) {
@@ -285,7 +300,7 @@ int main()
                                 }
                                 else if ((p.getRect().intersects((*it)->getRect())) && ((*it)->name == "EasyEnemy") && (p.currentsize >= 1.5)) {
                                        (*it)->life = false;  // Враг умирает
-                                    sound3.play();
+                                    sound6.play();
 
                                 }
                             }
@@ -295,7 +310,7 @@ int main()
                             p.sizeReachedTime = gameTimeClock.getElapsedTime().asSeconds();  // Запоминаем время
                         }
 
-                        if (p.isSizeMax && gameTimeClock.getElapsedTime().asSeconds() - p.sizeReachedTime >= 10.0f) {
+                        if (p.isSizeMax && gameTimeClock.getElapsedTime().asSeconds() - p.sizeReachedTime >= 7.0f) {
                             p.currentsize = 1.0f;  // Возвращаем исходный размер
                             p.isSizeMax = false;     // Сбрасываем флаг
                             p.w = 72;
@@ -372,6 +387,7 @@ int main()
 
         if (p.currentsize >= 1.5f){
                 window.draw(countdownText);}
+                sound7.play();
                 window.display();
 
         if (gameOver) {
