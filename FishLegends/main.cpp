@@ -29,6 +29,10 @@ int main()
     Sound sound4;
     sound4.setBuffer(kill);
 
+    float countdownTime = 0.0f;          // Время таймера (начинаем с 0)
+        sf::Clock countdownClock;            // Часы для отсчета времени
+        bool isCountdownActive = false;      // Флаг, активен ли таймер
+
     VideoMode desktop = VideoMode::getDesktopMode();
     RenderWindow window(VideoMode(1248, 960, desktop.bitsPerPixel), "FISH LEGENDS");
 
@@ -118,6 +122,36 @@ int main()
 
     while (window.isOpen())
     {
+        if (p.currentsize >= 1.5f && !isCountdownActive) {
+                       isCountdownActive = true;    // Активируем таймер
+                       countdownTime = 8.0f;        // Устанавливаем время на 5 секунд
+                       countdownClock.restart();    // Сбрасываем часы
+                   }
+
+                   // Если таймер активен, обновляем его
+                   if (isCountdownActive) {
+                       float elapsed = countdownClock.getElapsedTime().asSeconds();  // Получаем время с момента последнего кадра
+
+                       countdownTime -= elapsed;    // Уменьшаем таймер
+                       countdownClock.restart();    // Сбрасываем часы для следующего кадра
+
+                       // Когда время истекает
+                       if (countdownTime <= 1.0f) {
+                           countdownTime = 1.0f;    // Ограничиваем минимальное значение
+                           isCountdownActive = false; // Деактивируем таймер
+                       }
+                   }
+
+                   // Форматируем вывод оставшегося времени
+                   std::ostringstream countdownString;
+                   countdownString << static_cast<int>(countdownTime);  // Приводим к целому для отображения секунд
+
+                   // Отображаем таймер на экране
+                   Text countdownText("RAGE EFFECT:" + countdownString.str(), font, 30);  // Создаем текст для таймера
+                   countdownText.setColor(Color::Red);                 // Устанавливаем цвет текста
+                   countdownText.setPosition(50, 150);                   // Устанавливаем позицию текста
+
+                   // Рисуем текст таймера на экране
         float time = clock.getElapsedTime().asMicroseconds();
         if (!gameOver && p.life) gameTime = gameTimeClock.getElapsedTime().asSeconds(); // игровое время
         clock.restart();
@@ -308,6 +342,11 @@ int main()
 
         // Отображаем текст "GAME OVER", если игра окончена
         if (p.health <= 0){ p.life = false; gameOver = true;}//если жизней меньше 0, либо равно 0, то умираем
+
+        if (p.currentsize >= 1.5f){
+                window.draw(countdownText);}
+                window.display();
+
         if (gameOver) {
             window.draw(gameOverText);
         }
