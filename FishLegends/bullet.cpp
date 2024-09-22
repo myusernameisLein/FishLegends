@@ -16,8 +16,8 @@ void Bullet::update(float time)
 {
     case 0: dx = -speed; dy = 0; break;// state = left
     case 1: dx = speed; dy = 0; break;// state = right
-    case 2: dx = -speed; dy = 0; break;// state = left
-    case 3: dx = speed; dy = 0; break;// state = right
+    case 2: dx = speed; dy = 0; break;// state = left
+    case 3: dx = -speed; dy = 0; break;// state = right
 }
     if (life){
         x += dx*time;//само движение пули по х
