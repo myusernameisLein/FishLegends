@@ -168,6 +168,7 @@ int main()
                        isCountdownActive = true;    // Активируем таймер
                        countdownTime = 8.0f;        // Устанавливаем время на 5 секунд
                        countdownClock.restart();    // Сбрасываем часы
+                       sound7.play();
                    }
 
                    // Если таймер активен, обновляем его
@@ -387,7 +388,7 @@ int main()
 
         if (p.currentsize >= 1.5f){
                 window.draw(countdownText);}
-                sound7.play();
+
                 window.display();
 
         if (gameOver) {
