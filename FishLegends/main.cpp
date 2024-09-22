@@ -3,33 +3,80 @@
 #include "player.h"
 #include "bullet.h"
 #include "enemy.h"
+#include "fallingitem.h"
+
+void resetGame(Player &p, std::list<Entity*> &enemies, std::list<Entity*> &fallingItems, std::list<Entity*> &Bullets, Image &easyEnemyImage, sf::Clock &gameTimeClock) {
+    // Сброс состояния игрока
+    p.health = 100;
+    p.currentsize = 1.0f;
+    p.isSizeMax = false;
+    p.w = 72;
+    p.h = 72;
+    p.x = 100;  // Начальная позиция
+    p.y = 100;
+    p.life = true;  // Игрок снова жив
+
+    // Очистка списков врагов, предметов и пуль
+    enemies.clear();
+    fallingItems.clear();
+    Bullets.clear();
+
+    // Сброс врагов
+    const int ENEMY_COUNT = 3; // максимальное количество врагов
+    for (int i = 0; i < ENEMY_COUNT; i++) {
+        float xr = 300 + rand() % 500; // случайная координата врага
+        float yr = 300 + rand() % 350;
+        enemies.push_back(new Enemy(easyEnemyImage, xr, yr, 96, 96, "EasyEnemy"));
+    }
+    // Сброс игрового времени
+       gameTimeClock.restart();  // Сбрасываем игровые часы для отсчета времени с нуля
+}
 
 int main()
 {
-    sf::SoundBuffer music;
+    SoundBuffer music;
     music.loadFromFile("sound/music.wav"); // тут загружаем в буфер что-то
-    sf::Sound sound;
+    Sound sound;
     sound.setBuffer(music);
     sound.setLoop(true);
     sound.play();
 
-    sf::SoundBuffer bullet;
+    SoundBuffer bullet;
     bullet.loadFromFile("sound/bubble.wav"); // тут загружаем в буфер что-то
-    sf::Sound sound2;
+    Sound sound2;
     sound2.setBuffer(bullet);
 
-    sf::SoundBuffer death;
+    SoundBuffer death;
     death.loadFromFile("sound/death.wav"); // тут загружаем в буфер что-то
-    sf::Sound sound3;
+    Sound sound3;
     sound3.setBuffer(death);
 
-    sf::SoundBuffer kill;
+    SoundBuffer kill;
     kill.loadFromFile("sound/kill.wav"); // тут загружаем в буфер что-то
-    sf::Sound sound4;
+    Sound sound4;
     sound4.setBuffer(kill);
 
-    sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
-    sf::RenderWindow window(sf::VideoMode(1248, 960, desktop.bitsPerPixel), "FISH LEGENDS");
+    SoundBuffer hum;
+    hum.loadFromFile("sound/hum.wav"); // тут загружаем в буфер что-то
+    Sound sound5;
+    sound5.setBuffer(hum);
+
+    SoundBuffer eatfish;
+    eatfish.loadFromFile("sound/eatfish.wav"); // тут загружаем в буфер что-то
+    Sound sound6;
+    sound6.setBuffer(eatfish);
+
+    SoundBuffer rush;
+    rush.loadFromFile("sound/rush.wav"); // тут загружаем в буфер что-то
+    Sound sound7;
+    sound7.setBuffer(rush);
+
+    float countdownTime = 0.0f;          // Время таймера (начинаем с 0)
+        sf::Clock countdownClock;            // Часы для отсчета времени
+        bool isCountdownActive = false;      // Флаг, активен ли таймер
+
+    VideoMode desktop = VideoMode::getDesktopMode();
+    RenderWindow window(VideoMode(1248, 960, desktop.bitsPerPixel), "FISH LEGENDS");
 
     Font font; // шрифт
     font.loadFromFile("Pixel Cyr.ttf"); // передаем нашему шрифту файл шрифта
@@ -52,14 +99,38 @@ int main()
     gameOverText.setString("GAME OVER");
     gameOverText.setPosition(250, 350);
 
-    Image map_image; // объект изображения для карты
-    map_image.loadFromFile("images/map_new.png"); // загружаем файл для карты
-    Texture map; // текстура карты
-    map.loadFromImage(map_image); // заряжаем текстуру картинкой
-    Sprite s_map; // создаём спрайт для карты
-    s_map.setTexture(map); // заливаем текстуру спрайтом
+    int createFallingItemTimer = 0;
+    std::list<Entity*> fallingItems;
+    Image itemImage;
+    itemImage.loadFromFile("images/item.png");  // Загружаем картинку для предмета
+        // Загрузка фонов (три разных картинки)
+
+     Image backgroundImage1, backgroundImage2, backgroundImage3;
+     backgroundImage1.loadFromFile("images/bg.png");
+     backgroundImage2.loadFromFile("images/bg2.png");
+     backgroundImage3.loadFromFile("images/bg3.png");
+
+     Texture backgroundTexture1, backgroundTexture2, backgroundTexture3;
+     backgroundTexture1.loadFromImage(backgroundImage1);
+     backgroundTexture2.loadFromImage(backgroundImage2);
+     backgroundTexture3.loadFromImage(backgroundImage3);
+
+     Sprite backgroundSprite1, backgroundSprite2, backgroundSprite3;
+     backgroundSprite1.setTexture(backgroundTexture1);
+     backgroundSprite2.setTexture(backgroundTexture2);
+     backgroundSprite3.setTexture(backgroundTexture3);
+
+     // Масштабируем фоны под размер окна
+     backgroundSprite1.setScale(window.getSize().x / 1248.0f, window.getSize().y / 960.0f);
+     backgroundSprite2.setScale(window.getSize().x / 1248.0f, window.getSize().y / 960.0f);
+     backgroundSprite3.setScale(window.getSize().x / 1248.0f, window.getSize().y / 960.0f);
 
     Clock clock;
+
+    Clock backgroundClock;
+    float switchTime = 0.5f; // интервал смены фона в секундах
+    int currentBackground = 0; // текущий фон (0, 1, 2)
+
     Clock gameTimeClock; // переменная игрового времени
     int gameTime = 0; // игровое время
 
@@ -70,7 +141,7 @@ int main()
     Image BulletImage; // изображение для пули
     BulletImage.loadFromFile("images/bullet.png"); // загрузили картинку в объект изображения
 
-    Player p(heroImage, 100, 100, 96, 96, "Player1"); // объект класса игрока
+    Player p(heroImage, 100, 100, 72, 72, "Player1"); // объект класса игрока
     std::list<Entity*> enemies; // список врагов
     std::list<Entity*> Bullets; // список пуль
     std::list<Entity*>::iterator it; // итератор для прохода по элементам списка
@@ -89,40 +160,48 @@ int main()
 
     bool gameOver = false; // флаг состояния "игра окончена"
 
-    int createObjectForMapTimerAlga = 0;
-    int createObjectForMapTimerSnake = 0;
-    int createObjectForMapTimerHeart = 0;
     int createObjectForMapTimerEnemy = 0;
 
     while (window.isOpen())
     {
+        if (p.currentsize >= 1.5f && !isCountdownActive) {
+                       isCountdownActive = true;    // Активируем таймер
+                       countdownTime = 8.0f;        // Устанавливаем время на 5 секунд
+                       countdownClock.restart();    // Сбрасываем часы
+                       sound7.play();
+                   }
+
+                   // Если таймер активен, обновляем его
+                   if (isCountdownActive) {
+                       float elapsed = countdownClock.getElapsedTime().asSeconds();  // Получаем время с момента последнего кадра
+
+                       countdownTime -= elapsed;    // Уменьшаем таймер
+                       countdownClock.restart();    // Сбрасываем часы для следующего кадра
+
+                       // Когда время истекает
+                       if (countdownTime <= 1.0f) {
+                           countdownTime = 1.0f;    // Ограничиваем минимальное значение
+                           isCountdownActive = false; // Деактивируем таймер
+                       }
+                   }
+
+                   // Форматируем вывод оставшегося времени
+                   std::ostringstream countdownString;
+                   countdownString << static_cast<int>(countdownTime);  // Приводим к целому для отображения секунд
+
+                   // Отображаем таймер на экране
+                   Text countdownText("RAGE EFFECT:" + countdownString.str(), font, 30);  // Создаем текст для таймера
+                   countdownText.setColor(Color::Red);                 // Устанавливаем цвет текста
+                   countdownText.setPosition(50, 150);                   // Устанавливаем позицию текста
+
+                   // Рисуем текст таймера на экране
         float time = clock.getElapsedTime().asMicroseconds();
         if (!gameOver && p.life) gameTime = gameTimeClock.getElapsedTime().asSeconds(); // игровое время
         clock.restart();
         time = time / 600;
-        createObjectForMapTimerAlga += time;//наращиваем таймер
-        createObjectForMapTimerSnake += time;
-        createObjectForMapTimerHeart += time;
         createObjectForMapTimerEnemy += time;
+
         if (!gameOver) {
-            // Генерация водорослей
-            if (createObjectForMapTimerAlga > 3000) {
-                p.randomMapGenerateAlga(); // генерация водорослей
-                createObjectForMapTimerAlga = 0; // сброс таймера
-            }
-
-            // Генерация змей
-            if (createObjectForMapTimerSnake > 4800) {
-                p.randomMapGenerateSnake(); // генерация змей
-                createObjectForMapTimerSnake = 0; // сброс таймера
-            }
-
-            // Генерация сердец
-            if (createObjectForMapTimerHeart > 9000) {
-                p.randomMapGenerateHeart(); // генерация сердец
-                createObjectForMapTimerHeart = 0; // сброс таймера
-            }
-
             if (createObjectForMapTimerEnemy > 4000) {
                         float xr = 300 + rand() % 500;
                         float yr = 300 + rand() % 350;
@@ -146,6 +225,56 @@ int main()
             }
         }
 
+        if (backgroundClock.getElapsedTime().asSeconds() > switchTime) {
+                            currentBackground = (currentBackground + 1) % 3; // переключаем между 0, 1 и 2
+                            backgroundClock.restart(); // сбрасываем таймер
+                        }
+
+                        // Очищаем окно
+                        window.clear();
+
+                        // Рисуем фон в зависимости от текущего индекса фона
+                        if (currentBackground == 0) {
+                            window.draw(backgroundSprite1);
+                        } else if (currentBackground == 1) {
+                            window.draw(backgroundSprite2);
+                        } else if (currentBackground == 2) {
+                            window.draw(backgroundSprite3);
+                        }
+
+
+                        if (!gameOver) {  // Спавн новых предметов только если игра не окончена
+                                            createFallingItemTimer += time;
+                                            if (createFallingItemTimer > 2000) {
+                                                float xr = 48 + rand() % (window.getSize().x - 48 - 32);  // Случайная координата X с учетом границ
+                                                fallingItems.push_back(new FallingItem(itemImage, xr, -50, 32, 32, "FallingItem"));
+                                                createFallingItemTimer = 0;
+                                            }
+                                        }
+
+                                                for (auto it = fallingItems.begin(); it != fallingItems.end(); ) {
+                                                    if (!gameOver) {
+                                                            (*it)->update(time);  // Обновляем предметы только если игра не окончена
+                                                        }
+
+                                                    if ((*it)->getRect().intersects(p.getRect())) {
+                                                        p.increaseSize();
+                                                        (*it)->life = false;
+                                                        sound5.play();
+                                                    }
+
+                                                    if ((*it)->getRect().left < 48 || (*it)->getRect().left + (*it)->getRect().width > window.getSize().x - 48) {
+                                                        (*it)->life = false;
+                                                    }
+
+                                                    if (!(*it)->life) {
+                                                        it = fallingItems.erase(it);
+                                                    } else {
+                                                        window.draw((*it)->sprite);
+                                                        ++it;
+                                                    }
+                                                }
+
         if (!gameOver) {
             // Оживляем объекты только если игра не окончена
             p.update(time);
@@ -161,31 +290,48 @@ int main()
             }
 
             // Проверка пересечения игрока с врагами
-            if (p.life) {
-                for (it = enemies.begin(); it != enemies.end(); it++) {
-                    if ((p.getRect().intersects((*it)->getRect())) && ((*it)->name == "EasyEnemy")) {
-                        p.health = 0;
-                        p.life = false;
-                        gameOver = true; // устанавливаем флаг "игра окончена"
-                        sound3.play();
+                        if (p.life) {
+                            for (it = enemies.begin(); it != enemies.end(); it++) {
+                                if ((p.getRect().intersects((*it)->getRect())) && ((*it)->name == "EasyEnemy") && (p.currentsize < 1.5)) {
+                                    p.health = 0;
+                                    p.life = false;
+                                    gameOver = true; // устанавливаем флаг "игра окончена"
+                                    sound3.play();
 
-                    }
-                }
-            }
+                                }
+                                else if ((p.getRect().intersects((*it)->getRect())) && ((*it)->name == "EasyEnemy") && (p.currentsize >= 1.5)) {
+                                       (*it)->life = false;  // Враг умирает
+                                    sound6.play();
 
-            // Пересечение пули с врагом
-            for (deathenemy = enemies.begin(); deathenemy != enemies.end(); deathenemy++) {
-                for (it = Bullets.begin(); it != Bullets.end(); it++) {
-                    if (((*it)->getRect().intersects((*deathenemy)->getRect())) &&
-                        ((*deathenemy)->name == "EasyEnemy") && ((*it)->name == "Bullet")) {
+                                }
+                            }
+                        }
+                        if (p.currentsize >= 1.5f && !p.isSizeMax) {
+                            p.isSizeMax = true;  // Фиксируем достижение размера
+                            p.sizeReachedTime = gameTimeClock.getElapsedTime().asSeconds();  // Запоминаем время
+                        }
 
-                        (*deathenemy)->health = 0;
-                        (*deathenemy)->life = false;
-                        (*it)->life = false;
-                        sound4.play();
-                    }
-                }
-            }
+                        if (p.isSizeMax && gameTimeClock.getElapsedTime().asSeconds() - p.sizeReachedTime >= 7.0f) {
+                            p.currentsize = 1.0f;  // Возвращаем исходный размер
+                            p.isSizeMax = false;     // Сбрасываем флаг
+                            p.w = 72;
+                            p.h = 72;
+                            p.sprite.setScale(p.w / p.originalWidth, p.h / p.originalHeight);
+                        }
+
+                        // Пересечение пули с врагом
+                        for (deathenemy = enemies.begin(); deathenemy != enemies.end(); deathenemy++) {
+                            for (it = Bullets.begin(); it != Bullets.end(); it++) {
+                                if (((*it)->getRect().intersects((*deathenemy)->getRect())) &&
+                                    ((*deathenemy)->name == "EasyEnemy") && ((*it)->name == "Bullet")) {
+
+                                    (*deathenemy)->health = 0;
+                                    (*deathenemy)->life = false;
+                                    (*it)->life = false;
+                                    sound4.play();
+                                }
+                            }
+                        }
 
             // Удаление мёртвых врагов и пуль
             for (deathenemy = enemies.begin(); deathenemy != enemies.end(); ) {
@@ -206,27 +352,13 @@ int main()
             }
         }
 
-        window.clear();
-
-        // Рисуем карту
-        for (int i = 0; i < HEIGHT_MAP; i++) {
-            for (int j = 0; j < WIDTH_MAP; j++) {
-                if (p.TileMap[i][j] == ' ') s_map.setTextureRect(IntRect(0, 0, 48, 48));
-                if (p.TileMap[i][j] == 's') s_map.setTextureRect(IntRect(48, 0, 48, 48));
-                if ((p.TileMap[i][j] == '0')) s_map.setTextureRect(IntRect(96, 0, 48, 48));
-                if ((p.TileMap[i][j] == 'f')) s_map.setTextureRect(IntRect(144, 0, 48, 48)); // цветок
-                if ((p.TileMap[i][j] == 'h')) s_map.setTextureRect(IntRect(192, 0, 48, 48)); // сердце
-                s_map.setPosition(j * 48, i * 48);
-                window.draw(s_map);
-            }
-        }
-
         // Объявляем переменные здоровья и времени
-        std::ostringstream playerHealthString, gameTimeString;
+        std::ostringstream playerHealthString, gameTimeString, playerSize;
         playerHealthString << p.health;
         gameTimeString << gameTime;
+        playerSize << p.currentsize;
 
-        text.setString("Health: " + playerHealthString.str() + "\nTime: " + gameTimeString.str());
+        text.setString("Health: " + playerHealthString.str() + "\nTime: " + gameTimeString.str() + "\nSize: " + playerSize.str());
         text.setPosition(50, 50);
         window.draw(text);
 
@@ -253,11 +385,22 @@ int main()
 
         // Отображаем текст "GAME OVER", если игра окончена
         if (p.health <= 0){ p.life = false; gameOver = true;}//если жизней меньше 0, либо равно 0, то умираем
+
+        if (p.currentsize >= 1.5f){
+                window.draw(countdownText);}
+
+                window.display();
+
         if (gameOver) {
             window.draw(gameOverText);
         }
+        if (gameOver) {
+                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) {
+                        gameOver = false;  // Сбрасываем флаг Game Over
+                        resetGame(p, enemies, fallingItems, Bullets, easyEnemyImage, gameTimeClock);  // Сбрасываем игру
+                    }
+                }
 
-        window.display();
     }
 
     return 0;

@@ -10,7 +10,12 @@ public:
 
     enum { left, right, up, down, stay} state;// тип перечисления - состояние объекта
     float dx, dy, x, y, speed, moveTimer;//добавили переменную таймер для будущих целей
-
+    float sizeIncreaseRate; // Коэффициент увеличения размера
+    float originalWidth;
+    float originalHeight;
+    float sizeReachedTime = -1;  // Время достижения размера 2.0
+    bool isSizeMax = false;      // Флаг, что размер 2.0 был достигнут
+    float currentsize;
     int w, h, health; //переменная “health”, хранящая жизни игрока
     bool life; //переменная “life” жизнь, логическая
 
@@ -32,17 +37,17 @@ public:
     std::string TileMap[HEIGHT_MAP] = {
         "00000000000000000000000000",
         "0                        0",
-        "0      s                 0",
-        "0                 f      0",
         "0                        0",
         "0                        0",
         "0                        0",
-        "0          f             0",
         "0                        0",
         "0                        0",
-        "0                   h    0",
         "0                        0",
-        "0    f                   0",
+        "0                        0",
+        "0                        0",
+        "0                        0",
+        "0                        0",
+        "0                        0",
         "0                        0",
         "0                        0",
         "0                        0",
@@ -53,9 +58,6 @@ public:
 
 };
 
-    void randomMapGenerateAlga();//рандомно расставляем водоросли
-    void randomMapGenerateSnake();//рандомно расставляем змей
-    void randomMapGenerateHeart();//рандомно расставляем сердечки
 
 };
 

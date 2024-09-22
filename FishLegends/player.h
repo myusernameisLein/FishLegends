@@ -15,6 +15,8 @@ public:
     void checkCollisionWithMap(float Dx, float Dy);//Проверка столкновения
 
     void update(float time); //метод "оживления/обновления" объекта класса.
+
+    void increaseSize();
 };
 #endif // PLAYER
 

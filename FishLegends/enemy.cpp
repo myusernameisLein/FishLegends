@@ -74,7 +74,7 @@ void Enemy::update(float time)
                 dx = speed;
                 CurrentFrame += 0.005*time;
                 if (CurrentFrame > 3) CurrentFrame -= 3;
-                sprite.setTextureRect(IntRect(96 * int(CurrentFrame), 192, 96, 96));
+                sprite.setTextureRect(IntRect(85 * int(CurrentFrame), 100, 85, 50));
                 break;
                 }
 
@@ -82,7 +82,7 @@ void Enemy::update(float time)
                 dx = -speed;
                 CurrentFrame += 0.005*time;
                 if (CurrentFrame > 3) CurrentFrame -= 3;
-                sprite.setTextureRect(IntRect(96 * int(CurrentFrame), 96, 96, 96));
+                sprite.setTextureRect(IntRect(85 * int(CurrentFrame), 0, 85, 50));
                 break;
                 }
 
@@ -90,7 +90,7 @@ void Enemy::update(float time)
                 dy = -speed;
                 CurrentFrame += 0.005*time;
                 if (CurrentFrame > 3) CurrentFrame -= 3;
-                sprite.setTextureRect(IntRect(96 * int(CurrentFrame), 288, 96, 96));
+                sprite.setTextureRect(IntRect(85 * int(CurrentFrame), 150, 85, 50));
                 break;
                 }
 
@@ -98,7 +98,7 @@ void Enemy::update(float time)
                 dy = speed;
                 CurrentFrame += 0.005*time;
                 if (CurrentFrame > 3) CurrentFrame -= 3;
-                sprite.setTextureRect(IntRect(96 * int(CurrentFrame), 0, 96, 96));
+                sprite.setTextureRect(IntRect(85 * int(CurrentFrame), 50, 85, 50));
                 break;
                 }
 
