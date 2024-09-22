@@ -5,6 +5,33 @@
 #include "enemy.h"
 #include "fallingitem.h"
 
+void resetGame(Player &p, std::list<Entity*> &enemies, std::list<Entity*> &fallingItems, std::list<Entity*> &Bullets, Image &easyEnemyImage, sf::Clock &gameTimeClock) {
+    // Сброс состояния игрока
+    p.health = 100;
+    p.currentsize = 1.0f;
+    p.isSizeMax = false;
+    p.w = 72;
+    p.h = 72;
+    p.x = 100;  // Начальная позиция
+    p.y = 100;
+    p.life = true;  // Игрок снова жив
+
+    // Очистка списков врагов, предметов и пуль
+    enemies.clear();
+    fallingItems.clear();
+    Bullets.clear();
+
+    // Сброс врагов
+    const int ENEMY_COUNT = 3; // максимальное количество врагов
+    for (int i = 0; i < ENEMY_COUNT; i++) {
+        float xr = 300 + rand() % 500; // случайная координата врага
+        float yr = 300 + rand() % 350;
+        enemies.push_back(new Enemy(easyEnemyImage, xr, yr, 96, 96, "EasyEnemy"));
+    }
+    // Сброс игрового времени
+       gameTimeClock.restart();  // Сбрасываем игровые часы для отсчета времени с нуля
+}
+
 int main()
 {
     SoundBuffer music;
@@ -247,48 +274,48 @@ int main()
             }
 
             // Проверка пересечения игрока с врагами
-            if (p.life) {
-                for (it = enemies.begin(); it != enemies.end(); it++) {
-                    if ((p.getRect().intersects((*it)->getRect())) && ((*it)->name == "EasyEnemy")) {
-                        p.health = 0;
-                        p.life = false;
-                        gameOver = true; // устанавливаем флаг "игра окончена"
-                        sound3.play();
+                        if (p.life) {
+                            for (it = enemies.begin(); it != enemies.end(); it++) {
+                                if ((p.getRect().intersects((*it)->getRect())) && ((*it)->name == "EasyEnemy") && (p.currentsize < 1.5)) {
+                                    p.health = 0;
+                                    p.life = false;
+                                    gameOver = true; // устанавливаем флаг "игра окончена"
+                                    sound3.play();
 
-                    }
-                }
-            }
+                                }
+                                else if ((p.getRect().intersects((*it)->getRect())) && ((*it)->name == "EasyEnemy") && (p.currentsize >= 1.5)) {
+                                       (*it)->life = false;  // Враг умирает
+                                    sound3.play();
 
-            if (p.currentsize >= 1.5f && !p.isSizeMax) {
-                p.isSizeMax = true;  // Фиксируем достижение размера
-                p.sizeReachedTime = gameTimeClock.getElapsedTime().asSeconds();  // Запоминаем время
-            }
+                                }
+                            }
+                        }
+                        if (p.currentsize >= 1.5f && !p.isSizeMax) {
+                            p.isSizeMax = true;  // Фиксируем достижение размера
+                            p.sizeReachedTime = gameTimeClock.getElapsedTime().asSeconds();  // Запоминаем время
+                        }
 
-            if (p.isSizeMax && gameTimeClock.getElapsedTime().asSeconds() - p.sizeReachedTime >= 7.0f) {
-                p.currentsize = 1.0f;  // Возвращаем исходный размер
-                p.isSizeMax = false;     // Сбрасываем флаг
-                p.w = 72;
-                p.h = 72;
-                p.sprite.setScale(p.w / p.originalWidth, p.h / p.originalHeight);
-            }
+                        if (p.isSizeMax && gameTimeClock.getElapsedTime().asSeconds() - p.sizeReachedTime >= 10.0f) {
+                            p.currentsize = 1.0f;  // Возвращаем исходный размер
+                            p.isSizeMax = false;     // Сбрасываем флаг
+                            p.w = 72;
+                            p.h = 72;
+                            p.sprite.setScale(p.w / p.originalWidth, p.h / p.originalHeight);
+                        }
 
-            // Пересечение пули с врагом
-            if (p.life) {
-                for (it = enemies.begin(); it != enemies.end(); it++) {
-                    if ((p.getRect().intersects((*it)->getRect())) && ((*it)->name == "EasyEnemy") && (p.currentsize < 1.5)) {
-                        p.health = 0;
-                        p.life = false;
-                        gameOver = true; // устанавливаем флаг "игра окончена"
-                        sound3.play();
+                        // Пересечение пули с врагом
+                        for (deathenemy = enemies.begin(); deathenemy != enemies.end(); deathenemy++) {
+                            for (it = Bullets.begin(); it != Bullets.end(); it++) {
+                                if (((*it)->getRect().intersects((*deathenemy)->getRect())) &&
+                                    ((*deathenemy)->name == "EasyEnemy") && ((*it)->name == "Bullet")) {
 
-                    }
-                    else if ((p.getRect().intersects((*it)->getRect())) && ((*it)->name == "EasyEnemy") && (p.currentsize >= 1.5)) {
-                           (*it)->life = false;  // Враг умирает
-                        sound3.play();
-
-                    }
-                }
-            }
+                                    (*deathenemy)->health = 0;
+                                    (*deathenemy)->life = false;
+                                    (*it)->life = false;
+                                    sound4.play();
+                                }
+                            }
+                        }
 
             // Удаление мёртвых врагов и пуль
             for (deathenemy = enemies.begin(); deathenemy != enemies.end(); ) {
@@ -350,8 +377,13 @@ int main()
         if (gameOver) {
             window.draw(gameOverText);
         }
+        if (gameOver) {
+                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) {
+                        gameOver = false;  // Сбрасываем флаг Game Over
+                        resetGame(p, enemies, fallingItems, Bullets, easyEnemyImage, gameTimeClock);  // Сбрасываем игру
+                    }
+                }
 
-        window.display();
     }
 
     return 0;
